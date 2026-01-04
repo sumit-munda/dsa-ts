@@ -189,3 +189,5 @@ function moveZeroes(nums: number[]): number[] {
 
 // console.log(moveZeroes([0, 1, 0, 3, 12]));
 // Pattern: Two pointers + overwrite
+
+// BATCH 4 – ARRAYS (CONTINUED)
