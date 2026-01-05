@@ -1,7 +1,7 @@
 // Time and Space Complexity
 
 // What is Time Complexity?
-// Time Complexity tells us how the running time of an algorithm grow as the input size increase.
+// Time Complexity tells us how the running time of an algorithm grows as the input size increases.
 // It does not measure actual seconds
 // It measures number of operations
 // It focuses on growth rate, not exact time
@@ -102,4 +102,70 @@ for (let i = 0; i < n; i++)
 // Space Complexity → How much memory
 // Big-O → Worst case growth
 // Focus on patterns, not formulas
+
+// Note 
+// What does O(log n) actually mean?
+// Each step drastically reduces the problem size.
+
+// What happens in an O(log n) algorithm?
+// You don’t process every element
+// Instead, each operation shrinks the input
+// Usually by a constant factor (often half)
+
+// Example intuition
+// n → n/2 → n/4 → n/8 → ... → 1
+
+// Number of steps ≈ log₂ n
+
+// Binary Search (classic example)
+
+// What happens every step?
+// Look at the middle
+// Discard half the array
+
+// n = 1,000,000
+// steps ≈ log₂(1,000,000) ≈ 20
+
+// You never touch most elements.
+
+// Digit-based operations (why they are O(log n))
+
+// Example
+// while (n > 0) {
+//   n = Math.floor(n / 10);
+// }
+
+// What’s happening?
+// n → n/10 → n/100 → n/1000 → ...
+// Each step removes one digit.
+
+// Number of steps = number of digits
+// Digits in n = log₁₀ n
+
+// So:
+// TC = O(log n)
+
+// The common thing between binary search & digit problems
+// Same core idea
+// Problem size reduces exponentially each step
+
+// Problem	Reduction
+// Binary Search	n → n/2
+// Digit loop	n → n/10
+// Bit ops	n → n/2
+
+// Different base, same logarithmic behavior.
+
+// Why base doesn’t matter in Big-O
+// log₂ n = log₁₀ n / log₁₀ 2
+
+// Constant factor → ignored in Big-O.
+
+// Mental model (remember this)
+// O(n) → touch everything
+// O(log n) → keep throwing big chunks away
+// O(1) → no growth
+
+// One-liner (interview gold)
+// O(log n) algorithms reduce the input size by a constant factor in each step.
 

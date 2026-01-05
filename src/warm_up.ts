@@ -1,9 +1,8 @@
 // Warm Up
 
 // Problem 1: Programming 101
-// O(n)|O(1): Loop runs n times, no extra memory used
-
 // Print numbers from 1 to N
+
 // Input n = 5
 // Output 1 2 3 4 5
 
@@ -18,14 +17,14 @@ function printNumbers(n: number): void {
     console.log(i);
   }
 }
+// O(n)|O(1): Loop runs n times, no extra memory used
 
 // printNumbers(5);
 // Pattern learned: Basic loop
 
 // Problem 2: Function + if-else
-// O(1)|O(1): Single operation, no loop or storage
-
 // Check if a number is even or odd
+
 // Input n = 7
 // Output: Odd
 
@@ -35,14 +34,14 @@ function printNumbers(n: number): void {
 function checkEvenOrOdd(n: number): string {
   return n % 2 === 0 ? "Even" : "Odd";
 }
+// O(1)|O(1): Single operation, no loop or storage
 
 // console.log(checkEvenOrOdd(7));
 // Pattern learned: Condition checking
 
 // Problem 3: Loops 01
-// O(n)|O(1): Loop adds numbers once, uses one variable.
-
 // Sum of first N natural numbers
+
 // Input n = 5;
 // Output 15
 
@@ -56,9 +55,10 @@ function sumTillN(n: number): number {
   }
   return sum;
 }
+// O(n)|O(1): Loop adds numbers once, uses one variable.
 
-// Optimized Idea 
-// O(1)|O(1): Single operation, no loops or storage 
+// Optimized Idea
+// O(1)|O(1): Single operation, no loops or storage
 function sumTillN2(n: number): number {
   return (n * (n + 1)) / 2;
 }
@@ -68,9 +68,8 @@ function sumTillN2(n: number): number {
 // Pattern: Loop vs Formula optimization
 
 // Problem 4: Loops 02
-// O(d) → O(log₁₀ n)|O(1): One loop per digit, no extra storage.
-
 // Count digits in a number
+
 // Input n = 12345
 // Output 5
 
@@ -90,13 +89,14 @@ function countDigits(n: number): number {
 
   return digits;
 }
+// O(d) → O(log₁₀ n)|O(1): One loop per digit, no extra storage.
 
-// O(1)| O(1): Uses constant-time math (log10) without loops or extra storage.
 function countDigits2(n: number): number {
   if (n === 0) return 1;
 
   return Math.floor(Math.log10(Math.abs(n))) + 1;
 }
+// O(1)| O(1): Uses constant-time math (log10) without loops or extra storage.
 
 // console.log(countDigits(12345));
 // console.log(countDigits2(-1234));
@@ -107,7 +107,6 @@ function countDigits2(n: number): number {
 // Math.abs(n) - supports negative numbers
 
 // Problem 5: Second Largest in an Array
-// O(n)|O(1): Single pass through array, only two variables.
 
 // Input [10, 5, 20 , 8]
 // Output 10
@@ -132,8 +131,8 @@ function secondLargest(arr: number[]): number {
 
   return second;
 }
+// O(n)|O(1): Single pass through array, only two variables.
 
-// O(n)|O(1): Single pass through the array using constant extra variables.
 function secondLargest2(arr: number[]): number {
   if (arr.length < 2) {
     throw new Error("Array must have at least two elements");
@@ -156,13 +155,13 @@ function secondLargest2(arr: number[]): number {
   }
   return second;
 }
+// O(n)|O(1): Single pass through the array using constant extra variables.
 
 // console.log(secondLargest([10, 5, 20, 8]));
 // console.log(secondLargest2([10, 5, 20, 8]));
 // Pattern: Tracking two values
 
 // Problem 6: Palindrome Number
-// O(d) → O(log₁₀ n)|O(1): Reverse digits once, constant extra space.
 
 // Input 121
 // Output true
@@ -186,29 +185,29 @@ function isPalindrome(n: number): boolean {
 
   return n === newN;
 }
+// O(d) → O(log₁₀ n)|O(1): Reverse digits once, constant extra space.
 
-// O(d)|O(d): Converts number to string and creates a reversed copy of d digits.
 function isPalindromeStr(n: number): boolean {
   const reverse = `${n}`.split("").reverse().join("");
 
   return reverse === `${n}`;
 }
+// O(d)|O(d): Converts number to string and creates a reversed copy of d digits.
 
 // console.log(isPalindromeStr(121));
 // Pattern: Reverse logic
 
-// !((-2 ** 31) <= x <= (2 ** 31 - 1)) 
+// !((-2 ** 31) <= x <= (2 ** 31 - 1))
 // chained comparison doesn’t work in JS/TS.
 
-// Interview Tip 
+// Interview Tip
 // Loops → usually O(n)
-// Digit problems → usually O(log n)
+// Digit problems → usually O(log₁₀ n)
 // No extra data structures → O(1) space
 
-// O(d): In digit-based problems, we express complexity in terms of digits processed 
+// O(d): In digit-based problems, we express complexity in terms of digits processed
 
 // Problem 7: Reverse Integer
-// O(d) → O(log₁₀ n)|O(1): Processes each digit once, no extra storage.
 
 // Input 123
 // Output 321
@@ -235,12 +234,12 @@ function reverseInteger(n: number): number {
 
   return reverse * sign;
 }
+// O(d) → O(log₁₀ n)|O(1): Processes each digit once, no extra storage.
 
 // console.log(reverseInteger(-1234));
-// Pattern: Reverse logic 
+// Pattern: Reverse logic
 
 // Problem 8: Star Pattern
-// O(n²)|O(1): Nested loops print stars row by row.
 
 // Input n = 3
 // Output
@@ -255,19 +254,19 @@ function reverseInteger(n: number): number {
 // TS Code
 function starPattern(n: number): void {
   for (let i = 1; i <= n; i++) {
-      let row = "";
-      for (let j = 1; j <= i; j++) {
-          row += "*";
+    let row = "";
+    for (let j = 1; j <= i; j++) {
+      row += "*";
     }
     console.log(row);
+  }
 }
-}
+// O(n²)|O(1): Nested loops print stars row by row.
 
 // starPattern(3);
 // Pattern: Nested loops / Pattern printing
 
 // Problem 9: Loop in Loop (Multiplication Table)
-// O(n²)|O(1): Two loops multiply row × column.
 
 // Input n = 3
 // Output
@@ -289,13 +288,12 @@ function multiplicationTable(n: number): void {
     console.log(row);
   }
 }
+// O(n²)|O(1): Two loops multiply row × column.
 
 // multiplicationTable(3)
 // Pattern: Nested loops / Matrix-style traversal
 
 // Problem 10: Count Digits (Edge Case: 0)
-// O(d) → O(log₁₀ n)|O(1): Reverse digits once, constant extra space.
-// O(d) → O(log₁₀ n)|O(1): Loop runs once per digit.
 
 // Input 0
 // Output 1
@@ -317,12 +315,12 @@ function countDigits3(n: number): number {
 
   return count;
 }
+// O(d) → O(log₁₀ n)|O(1): Loop runs once per digit.
 
 // console.log(countDigits(435));
 // Pattern: Digit extraction using division
 
 // Problem 11: Sum of Digits
-// O(d) → O(log₁₀ n)|O(1): Each digit is extracted and summed once.
 
 // Input 1234
 // Output 10
@@ -342,12 +340,12 @@ function sumOfDigits(n: number): number {
   }
   return sum;
 }
+// O(d) → O(log₁₀ n)|O(1): Each digit is extracted and summed once.
 
 // console.log(sumOfDigits(1234));
 // Pattern: Digit extraction + accumulation
 
 // Problem 12: Armstrong Number
-// O(d) → O(log₁₀ n)|O(1): Processes each digit once, uses fixed variables.
 
 // Input 153
 // Output true
@@ -373,12 +371,13 @@ function isArmstrong(n: number): boolean {
 
   return sum === original;
 }
+// O(d) → O(log₁₀ n)|O(1): Processes each digit once, uses fixed variables.
 
 // console.log(isArmstrong(153));
 // Pattern: Digit extraction + power calculation
 
-// Interview Tip 
-// Digit-based problems → O(log n)
+// Interview Tip
+// Digit-based problems → O(log₁₀ n)
 // Nested loops → O(n²)
 // No arrays/maps → O(1) space
 

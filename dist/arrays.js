@@ -146,7 +146,20 @@ function moveZeroes(nums) {
     }
     return nums;
 }
+// fewer lines versions
+function moveZeroes2(nums) {
+    let k = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== 0) {
+            [nums[k], nums[i]] = [nums[i], nums[k]];
+            k++;
+        }
+    }
+    return nums;
+}
 // in-place swap
 // O(n)|O(1): Two linear passes, in-place
 // console.log(moveZeroes([0, 1, 0, 3, 12]));
+console.log(moveZeroes2([0, 1, 0, 3, 12]));
 // Pattern: Two pointers + overwrite
+// BATCH 4 – ARRAYS (CONTINUED)
