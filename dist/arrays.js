@@ -160,6 +160,149 @@ function moveZeroes2(nums) {
 // in-place swap
 // O(n)|O(1): Two linear passes, in-place
 // console.log(moveZeroes([0, 1, 0, 3, 12]));
-console.log(moveZeroes2([0, 1, 0, 3, 12]));
+// console.log(moveZeroes2([0, 1, 0, 3, 12]));
 // Pattern: Two pointers + overwrite
 // BATCH 4 – ARRAYS (CONTINUED)
+// Problem 1: Find Largest Element in Array
+// Find the largest number in an array.
+// Input: arr = [2, 5, 1, 3, 0]
+// Output: 5
+// Thinking
+// Assume first element is max
+// Compare each element
+// Update max when needed
+// TS Code | GFG: Find Largest Element in Array
+function largestElement(nums) {
+    let max = nums[0];
+    for (let i = 1; i < nums.length; i++) {
+        max = Math.max(max, nums[i]);
+    }
+    return max;
+}
+// O(n)|O(1): Single pass, constant variable
+// console.log(largestElement([2, 5, 1, 3, 0]));
+// Pattern: Linear traversal
+// Problem 2: Find Second Largest Element
+// Find the second largest distinct element.
+// Input: arr = [1, 2, 4, 7, 7, 5]
+// Output: 5
+// Thinking
+// Track largest and second largest
+// Skip duplicates
+// TS Code | GFG: Second Largest Element in Array
+function secondLargest1(nums) {
+    let l = -Infinity;
+    let s = -Infinity;
+    for (let num of nums) {
+        if (num > l) {
+            s = l;
+            l = num;
+        }
+        else if (num > s && num !== l) {
+            s = num;
+        }
+    }
+    return s;
+}
+// O(n)|O(1): One loop, no extra space
+// Optimization: Better than sorting (O(n log n))
+// console.log(secondLargest1([1, 2, 4, 7, 7, 5]));
+// Pattern: Tracking two maximums
+// Problem 3: Check if Array is Sorted
+// Check whether array is sorted in non-decreasing order.
+// Input: [1, 2, 3, 4]
+// Output: true
+// Thinking
+// Compare adjacent elements
+// If any pair breaks order → false
+// TS Code | GFG: Check if Array is Sorted
+function isSorted(nums) {
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] < nums[i - 1])
+            return false;
+    }
+    return true;
+}
+// O(n)|O(1): Single traversal
+// Optimization: Early exit on failure
+// console.log(isSorted([1, 2, 3, 4]));
+// Pattern: Adjacent comparison
+// Problem 4: Rotate Array by One
+// Rotate array to the right by one position.
+// Input: [1, 2, 3, 4, 5]
+// Output: [5, 1, 2, 3, 4]
+// Thinking
+// Store last element
+// Shift others right
+// Place last at front
+// TS Code| GFG: Rotate Array by One
+function rotateByOne(nums) {
+    const last = nums[nums.length - 1];
+    for (let i = nums.length - 1; i > 0; i--) {
+        nums[i] = nums[i - 1];
+    }
+    nums[0] = last;
+    console.log(nums);
+}
+// O(n)|O(1): In-place shifting
+// Optimization: No extra array used
+// rotateByOne([1, 2, 3, 4, 5]);
+// Pattern: Reverse shifting
+// Problem 5: Left Rotate Array by D Places
+// Rotate array left by d positions.
+// Input: arr = [1,2,3,4,5], d = 2
+// Output: [3,4,5,1,2]
+// Thinking
+// Reverse first part
+// Reverse second part
+// Reverse whole array
+// TS Code| GFG: Rotate Array by D Places
+function rotateByD(nums, d) {
+    while (d >= 0) {
+        const last = nums[nums.length - 1];
+        for (let i = nums.length - 1; i > 0; i--) {
+            nums[i] = nums[i - 1];
+        }
+        nums[0] = last;
+        d--;
+    }
+    console.log(nums);
+}
+// O(n²)|O(1): Nested loops
+function reverse(arr, start, end) {
+    while (start < end) {
+        [arr[start], arr[end]] = [arr[end], arr[start]];
+        start++;
+        end--;
+    }
+}
+function rotateByDOP(arr, d) {
+    d = d % arr.length;
+    reverse(arr, 0, d - 1);
+    reverse(arr, d, arr.length - 1);
+    reverse(arr, 0, arr.length - 1);
+    console.log(arr);
+}
+// O(n)|O(1): Three reversals part-by-part, no extra memory
+// Optimization: Best possible (vs temp array)
+// rotateByD([1, 2, 3, 4, 5], 2);
+// rotateByDOP([1, 2, 3, 4, 5], 2);
+// Pattern: Reversal algorithm
+// BATCH 5 – ARRAYS + HASHING
+// Problem 1: Frequency of Elements
+// Count frequency of each element in an array.
+// Input: arr = [1, 2, 2, 1, 3]
+// Output:
+// 1 → 2
+// 2 → 2
+// 3 → 1
+// Thinking
+// Use hash map
+// Increment count for each element
+// TS Code | GFG: Frequency of Array Elements
+// function frequencyCount(nums: number[]) {
+//   let countArr = [];
+//   let count = 0;
+//   for (let i = 0; i < nums.length; i++) {
+//   }
+// }
