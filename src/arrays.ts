@@ -388,3 +388,16 @@ function rotateByDOP(arr: number[], d: number) {
 
 //   }
 // }
+
+// Problem 2: Count Subarrays with Given Sum (Positive Integers)
+// Count subarrays whose sum equals k (positive numbers only).
+
+// Input: arr = [1, 2, 1, 1, 1], k = 3
+// Output: 3
+
+// Thinking
+// Expand window to increase sum
+// Shrink window if sum exceeds k
+// Count when sum equals k
+
+// TS Code | GFG: Subarray with Given Sum
