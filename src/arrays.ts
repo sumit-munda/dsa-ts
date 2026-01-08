@@ -381,13 +381,13 @@ function rotateByDOP(arr: number[], d: number) {
 // Increment count for each element
 
 // TS Code | GFG: Frequency of Array Elements
-// function frequencyCount(nums: number[]) {
-//   let countArr = [];
-//   let count = 0;
-//   for (let i = 0; i < nums.length; i++) {
+function frequencyCount(nums: number[]) {
+  let countArr = [];
+  let count = 0;
+  for (let i = 0; i < nums.length; i++) {
 
-//   }
-// }
+  }
+}
 
 // Problem 2: Count Subarrays with Given Sum (Positive Integers)
 // Count subarrays whose sum equals k (positive numbers only).
