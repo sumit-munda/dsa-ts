@@ -401,3 +401,5 @@ function frequencyCount(nums: number[]) {
 // Count when sum equals k
 
 // TS Code | GFG: Subarray with Given Sum
+
+// BATCH 6 – SLIDING WINDOW (SUBARRAY BASICS)
