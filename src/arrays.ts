@@ -403,3 +403,52 @@ function frequencyCount(nums: number[]) {
 // TS Code | GFG: Subarray with Given Sum
 
 // BATCH 6 – SLIDING WINDOW (SUBARRAY BASICS)
+
+// Problem 1: Maximum Sum Subarray of Size K
+
+// 📌 LeetCode: ❌ | GFG: Maximum Sum Subarray of Size K
+
+// 👉 Problem
+// Find the maximum sum of a subarray of size k.
+
+// Input:
+
+// arr = [2, 1, 5, 1, 3, 2], k = 3
+
+
+// Output:
+
+// 9
+
+
+// 💡 Thinking
+
+// First window sum
+
+// Slide window by:
+
+// Remove left element
+
+// Add right element
+
+// Track max sum
+
+// ✅ TS Code
+
+function maxSubarraySum(arr: number[], k: number): number {
+  let windowSum = 0;
+  let maxSum = 0;
+
+  for (let i = 0; i < k; i++) {
+    windowSum += arr[i];
+  }
+
+  maxSum = windowSum;
+
+  for (let i = k; i < arr.length; i++) {
+    windowSum += arr[i] - arr[i - k];
+    maxSum = Math.max(maxSum, windowSum);
+  }
+
+  return maxSum;
+}
