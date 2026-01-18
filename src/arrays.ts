@@ -452,3 +452,44 @@ function maxSubarraySum(arr: number[], k: number): number {
 
   return maxSum;
 }
+
+// Problem 5: Maximum Consecutive Ones
+
+// 📌 LeetCode: #485 | GFG: Max Consecutive Ones
+
+// 👉 Problem
+// Find maximum number of consecutive 1s.
+
+// Input:
+
+// [1,1,0,1,1,1]
+
+
+// Output:
+
+// 3
+
+
+// 💡 Thinking
+
+// Count continuous ones
+
+// Reset on zero
+
+// ✅ TS Code
+
+function findMaxConsecutiveOnes(nums: number[]): number {
+  let count = 0;
+  let maxCount = 0;
+
+  for (let num of nums) {
+    if (num === 1) {
+      count++;
+      maxCount = Math.max(maxCount, count);
+    } else {
+      count = 0;
+    }
+  }
+
+  return maxCount;
+}
