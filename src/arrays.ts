@@ -493,3 +493,58 @@ function findMaxConsecutiveOnes(nums: number[]): number {
 
   return maxCount;
 }
+
+// Problem 4: Longest Subarray with Sum = K (Positive Numbers)
+
+// 📌 LeetCode: ❌ | GFG: Longest Subarray with Sum K
+
+// 👉 Problem
+// Find longest subarray whose sum equals k.
+
+// Input:
+
+// arr = [1, 2, 3, 1, 1, 1, 1], k = 3
+
+
+// Output:
+
+// 3
+
+
+// 💡 Thinking
+
+// Increase sum using right pointer
+
+// Decrease sum using left pointer
+
+// Track max length on exact match
+
+// ✅ TS Code
+
+function longestSubarraySumK(arr: number[], k: number): number {
+  let left = 0;
+  let sum = 0;
+  let maxLen = 0;
+
+  for (let right = 0; right < arr.length; right++) {
+    sum += arr[right];
+
+    while (sum > k) {
+      sum -= arr[left];
+      left++;
+    }
+
+    if (sum === k) {
+      maxLen = Math.max(maxLen, right - left + 1);
+    }
+  }
+
+  return maxLen;
+}
+
+
+// ⏱️ TC: O(n)
+// 🧠 SC: O(1)
+// Why: Each element processed once
+
+// 🧠 Pattern: Variable-size window (exact sum)
