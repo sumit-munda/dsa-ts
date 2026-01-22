@@ -1,6 +1,6 @@
 // Namaste DSA by Akshay Saini
 
-// Introduction
+// BATCH 1 Introduction
 
 // What is DSA?
 // Data Structures - how data is stored (array, string, list, etc.)

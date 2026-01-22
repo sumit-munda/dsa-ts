@@ -1,4 +1,4 @@
-// Warm Up
+// BATCH 1 Warm Up
 
 // Problem 1: Programming 101
 // Print numbers from 1 to N
@@ -57,6 +57,7 @@ function sumTillN(n: number): number {
 }
 // O(n)|O(1): Loop adds numbers once, uses one variable.
 
+// *
 // Optimized Idea
 // O(1)|O(1): Single operation, no loops or storage
 function sumTillN2(n: number): number {
@@ -91,6 +92,7 @@ function countDigits(n: number): number {
 }
 // O(d) → O(log₁₀ n)|O(1): One loop per digit, no extra storage.
 
+// *
 function countDigits2(n: number): number {
   if (n === 0) return 1;
 
@@ -115,6 +117,7 @@ function countDigits2(n: number): number {
 // Track largest
 // Track second largest
 
+// *
 // TS Code
 function secondLargest(arr: number[]): number {
   let largest = -Infinity;
@@ -170,6 +173,7 @@ function secondLargest2(arr: number[]): number {
 // Reverse the number
 // Compare with original
 
+// *
 // TS Code | Leetcode #9 and #7
 function isPalindrome(n: number): boolean {
   if (n === 0) return true;
@@ -187,6 +191,7 @@ function isPalindrome(n: number): boolean {
 }
 // O(d) → O(log₁₀ n)|O(1): Reverse digits once, constant extra space.
 
+// *
 function isPalindromeStr(n: number): boolean {
   const reverse = `${n}`.split("").reverse().join("");
 
@@ -202,10 +207,12 @@ function isPalindromeStr(n: number): boolean {
 
 // Interview Tip
 // Loops → usually O(n)
-// Digit problems → usually O(log₁₀ n)
+// Digit problems → usually O(log₁₀ n) | O(log n) (base doesn’t matter in Big-O)
 // No extra data structures → O(1) space
 
 // O(d): In digit-based problems, we express complexity in terms of digits processed
+
+// BATCH 2 WARM UP (Continued)
 
 // Problem 7: Reverse Integer
 
@@ -218,6 +225,7 @@ function isPalindromeStr(n: number): boolean {
 // Remove last digit using / 10
 // Repeat until number becomes 0
 
+// *
 // TS Code | Leetcode #7
 function reverseInteger(n: number): number {
   if (n === 0) return 0;
@@ -239,6 +247,7 @@ function reverseInteger(n: number): number {
 // console.log(reverseInteger(-1234));
 // Pattern: Reverse logic
 
+// *
 // Problem 8: Star Pattern
 
 // Input n = 3
@@ -246,6 +255,7 @@ function reverseInteger(n: number): number {
 // *
 // **
 // ***
+// The inner loop runs as many times as the current iteration number of the outer loop.
 
 // Thinking
 // Outer loop → rows
@@ -266,6 +276,7 @@ function starPattern(n: number): void {
 // starPattern(3);
 // Pattern: Nested loops / Pattern printing
 
+// *
 // Problem 9: Loop in Loop (Multiplication Table)
 
 // Input n = 3
@@ -273,6 +284,7 @@ function starPattern(n: number): void {
 // 1 2 3
 // 2 4 6
 // 3 6 9
+// For each row, the inner loop runs through all columns and prints the product of the current row number and the column number.
 
 // Thinking
 // Outer loop → row number
@@ -355,6 +367,7 @@ function sumOfDigits(n: number): number {
 // Raise each digit to power of count
 // Sum them and compare with original number
 
+// *
 // TS Code | GFG / Interview Standard
 function isArmstrong(n: number): boolean {
   if (n >= 0 || n < 10) return true;
