@@ -1,4 +1,4 @@
-// Arrays (Foundation)
+// BATCH 3 Arrays (Foundation)
 
 // Problem 1: Remove Duplicates from Sorted Array
 // Remove duplicates in-place from a sorted array and return new length.
@@ -65,7 +65,7 @@ function removeElement(nums: number[], val: number): number {
 
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] !== val) {
-      // putting elements in new arr with index k
+      // putting elements in the arr with index k (used to write in the arr)
       nums[k] = nums[i];
       k++;
     }
@@ -108,8 +108,7 @@ function reverseString(s: string): string {
 // Strings are immutable in JS/TS → you can’t assign s[l] = ...
 // Use while (l < r) for two-pointer swaps
 
-function reverseString2(str: string): string {
-  let s = str.split("");
+function reverseString2(s: string[]): string {
   let l = 0;
   let r = s.length - 1;
 
@@ -120,11 +119,42 @@ function reverseString2(str: string): string {
   }
   return s.join("");
 }
-// O(n)|O(1): Each character swapped once
+// O(n)|O(n): Each character swapped once in-place and join creates a string of length n
 
 // console.log(reverseString("hello"));
 // console.log(reverseString2("hello"));
 // Pattern: Two pointers (revese logic)
+
+// Step-wise Time Complexity
+
+// 1 split("")
+// Converts string → array of characters
+// Touches every character once
+// O(n)
+
+// 2️ reverse()
+// Reverses the array in place
+// ~ n/2 swaps
+// O(n)
+
+// 3️ join("")
+// Converts array → string
+// Reads every character once
+// O(n) 
+
+// Step-wise Space Complexity
+
+// 1 split("")
+// Creates a new array of size n
+// O(n) space
+
+// 2️ reverse()
+// In-place swap
+// O(1) extra space
+
+// 3️ join("")
+//Creates a new string of size n
+// O(n) space
 
 // Problem 4: Best Time to Buy and Sell Stock
 // Maximize profit by buying once and selling once.
