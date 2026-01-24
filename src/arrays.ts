@@ -436,9 +436,9 @@ function frequencyCount(nums: number[]) {
 
 // Problem 1: Maximum Sum Subarray of Size K
 
-// 📌 LeetCode: ❌ | GFG: Maximum Sum Subarray of Size K
+//  LeetCode:  | GFG: Maximum Sum Subarray of Size K
 
-// 👉 Problem
+//  Problem
 // Find the maximum sum of a subarray of size k.
 
 // Input:
@@ -451,7 +451,7 @@ function frequencyCount(nums: number[]) {
 // 9
 
 
-// 💡 Thinking
+// Thinking
 
 // First window sum
 
@@ -463,7 +463,7 @@ function frequencyCount(nums: number[]) {
 
 // Track max sum
 
-// ✅ TS Code
+//  TS Code
 
 function maxSubarraySum(arr: number[], k: number): number {
   let windowSum = 0;
@@ -485,9 +485,9 @@ function maxSubarraySum(arr: number[], k: number): number {
 
 // Problem 5: Maximum Consecutive Ones
 
-// 📌 LeetCode: #485 | GFG: Max Consecutive Ones
+//  LeetCode: #485 | GFG: Max Consecutive Ones
 
-// 👉 Problem
+//  Problem
 // Find maximum number of consecutive 1s.
 
 // Input:
@@ -500,13 +500,13 @@ function maxSubarraySum(arr: number[], k: number): number {
 // 3
 
 
-// 💡 Thinking
+//  Thinking
 
 // Count continuous ones
 
 // Reset on zero
 
-// ✅ TS Code
+//  TS Code
 
 function findMaxConsecutiveOnes(nums: number[]): number {
   let count = 0;
@@ -526,9 +526,9 @@ function findMaxConsecutiveOnes(nums: number[]): number {
 
 // Problem 4: Longest Subarray with Sum = K (Positive Numbers)
 
-// 📌 LeetCode: ❌ | GFG: Longest Subarray with Sum K
+//  LeetCode: | GFG: Longest Subarray with Sum K
 
-// 👉 Problem
+// Problem
 // Find longest subarray whose sum equals k.
 
 // Input:
@@ -541,7 +541,7 @@ function findMaxConsecutiveOnes(nums: number[]): number {
 // 3
 
 
-// 💡 Thinking
+// Thinking
 
 // Increase sum using right pointer
 
@@ -549,7 +549,7 @@ function findMaxConsecutiveOnes(nums: number[]): number {
 
 // Track max length on exact match
 
-// ✅ TS Code
+// TS Code
 
 function longestSubarraySumK(arr: number[], k: number): number {
   let left = 0;
@@ -573,17 +573,17 @@ function longestSubarraySumK(arr: number[], k: number): number {
 }
 
 
-// ⏱️ TC: O(n)
-// 🧠 SC: O(1)
+//  TC: O(n)
+//  SC: O(1)
 // Why: Each element processed once
 
-// 🧠 Pattern: Variable-size window (exact sum)
+// Pattern: Variable-size window (exact sum)
 
 // Problem 3: Longest Subarray with Sum ≤ K
 
-// 📌 LeetCode: ❌ | GFG: Longest Subarray with Sum ≤ K
+// LeetCode:  | GFG: Longest Subarray with Sum ≤ K
 
-// 👉 Problem
+//  Problem
 // Find length of longest subarray with sum ≤ k.
 
 // Input:
@@ -596,7 +596,7 @@ function longestSubarraySumK(arr: number[], k: number): number {
 // 3
 
 
-// 💡 Thinking
+//  Thinking
 
 // Expand window to add elements
 
@@ -604,7 +604,7 @@ function longestSubarraySumK(arr: number[], k: number): number {
 
 // Track max length
 
-// ✅ TS Code
+//  TS Code
 
 function longestSubarray(arr: number[], k: number): number {
   let left = 0;
@@ -626,8 +626,8 @@ function longestSubarray(arr: number[], k: number): number {
 }
 
 
-// ⏱️ TC: O(n)
-// 🧠 SC: O(1)
+//  TC: O(n)
+//  SC: O(1)
 // Why: Sliding window, no extra DS
 
-// 🧠 Pattern: Window expand + shrink
+// Pattern: Window expand + shrink
