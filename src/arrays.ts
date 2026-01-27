@@ -140,7 +140,7 @@ function reverseString2(s: string[]): string {
 // 3️ join("")
 // Converts array → string
 // Reads every character once
-// O(n) 
+// O(n)
 
 // Step-wise Space Complexity
 
@@ -411,13 +411,13 @@ function rotateByDOP(arr: number[], d: number) {
 // Increment count for each element
 
 // TS Code | GFG: Frequency of Array Elements
-function frequencyCount(nums: number[]) {
-  let countArr = [];
-  let count = 0;
-  for (let i = 0; i < nums.length; i++) {
+// function frequencyCount(nums: number[]) {
+//   let countArr = [];
+//   let count = 0;
+//   for (let i = 0; i < nums.length; i++) {
 
-  }
-}
+//   }
+// }
 
 // Problem 2: Count Subarrays with Given Sum (Positive Integers)
 // Count subarrays whose sum equals k (positive numbers only).
@@ -445,11 +445,9 @@ function frequencyCount(nums: number[]) {
 
 // arr = [2, 1, 5, 1, 3, 2], k = 3
 
-
 // Output:
 
 // 9
-
 
 // Thinking
 
@@ -494,11 +492,9 @@ function maxSubarraySum(arr: number[], k: number): number {
 
 // [1,1,0,1,1,1]
 
-
 // Output:
 
 // 3
-
 
 //  Thinking
 
@@ -535,11 +531,9 @@ function findMaxConsecutiveOnes(nums: number[]): number {
 
 // arr = [1, 2, 3, 1, 1, 1, 1], k = 3
 
-
 // Output:
 
 // 3
-
 
 // Thinking
 
@@ -572,7 +566,6 @@ function longestSubarraySumK(arr: number[], k: number): number {
   return maxLen;
 }
 
-
 //  TC: O(n)
 //  SC: O(1)
 // Why: Each element processed once
@@ -590,11 +583,9 @@ function longestSubarraySumK(arr: number[], k: number): number {
 
 // arr = [2, 5, 1, 7, 10], k = 14
 
-
 // Output:
 
 // 3
-
 
 //  Thinking
 
@@ -624,7 +615,6 @@ function longestSubarray(arr: number[], k: number): number {
 
   return maxLen;
 }
-
 
 //  TC: O(n)
 //  SC: O(1)
