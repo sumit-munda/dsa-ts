@@ -566,28 +566,20 @@ function longestSubarraySumK(arr: number[], k: number): number {
 // Pattern: Variable-size window (exact sum)
 
 // Problem 3: Longest Subarray with Sum ≤ K
-
 // LeetCode:  | GFG: Longest Subarray with Sum ≤ K
 
 //  Problem
 // Find length of longest subarray with sum ≤ k.
 
 // Input:
-
 // arr = [2, 5, 1, 7, 10], k = 14
-
 // Output:
-
 // 3
 
 //  Thinking
-
 // Expand window to add elements
-
 // Shrink when sum exceeds k
-
 // Track max length
-
 //  TS Code
 
 function longestSubarray(arr: number[], k: number): number {
@@ -612,5 +604,4 @@ function longestSubarray(arr: number[], k: number): number {
 //  TC: O(n)
 //  SC: O(1)
 // Why: Sliding window, no extra DS
-
 // Pattern: Window expand + shrink
