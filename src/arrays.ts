@@ -521,14 +521,11 @@ function findMaxConsecutiveOnes(nums: number[]): number {
 }
 
 // Problem 4: Longest Subarray with Sum = K (Positive Numbers)
-
 //  LeetCode: | GFG: Longest Subarray with Sum K
 // Problem
 // Find longest subarray whose sum equals k.
 // Input:
-
 // arr = [1, 2, 3, 1, 1, 1, 1], k = 3
-
 // Output:
 // 3
 // Thinking
