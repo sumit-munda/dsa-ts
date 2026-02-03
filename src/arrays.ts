@@ -602,3 +602,23 @@ function longestSubarray(arr: number[], k: number): number {
 //  SC: O(1)
 // Why: Sliding window, no extra DS
 // Pattern: Window expand + shrink
+
+function isAnagram(s: string, t: string): boolean {
+  if (s.length !== t.length) return false;
+
+  const freq = new Map<string, number>();
+
+  for (let ch of s) {
+    freq.set(ch, (freq.get(ch) || 0) + 1);
+  }
+
+  for (let ch of t) {
+    if (!freq.has(ch) || freq.get(ch)! === 0) {
+      return false;
+    }
+    freq.set(ch, freq.get(ch)! - 1);
+  }
+
+  return true;
+}
+
