@@ -489,13 +489,9 @@ function maxSubarraySum(arr: number[], k: number): number {
 // Find maximum number of consecutive 1s.
 
 // Input:
-
 // [1,1,0,1,1,1]
-
 // Output:
-
 // 3
-
 //  Thinking
 
 // Count continuous ones

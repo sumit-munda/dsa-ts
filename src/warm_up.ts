@@ -91,6 +91,7 @@ function countDigits(n: number): number {
   return digits;
 }
 // O(d) → O(log₁₀ n)|O(1): One loop per digit, no extra storage.
+// [log base 10 of n or the common logarithm of n]
 
 // *
 function countDigits2(n: number): number {
@@ -182,7 +183,7 @@ function isPalindrome(n: number): boolean {
 
   while (oriN > 0) {
     let rem = oriN % 10;
-    newN = newN * 10 + rem;
+    newN = newN * 10 + rem; // exponential growth of the newN, so * 10
     // oriN = oriN / 10; In JS/TS, / always gives a decimal
     oriN = Math.floor(oriN / 10);
   }
