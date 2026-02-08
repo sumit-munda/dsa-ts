@@ -618,3 +618,49 @@ function isAnagram(s: string, t: string): boolean {
   return true;
 }
 
+// Problem 4: First Unique Character
+
+// 📌 LeetCode: #387 | GFG: First Non-Repeating Character
+
+// 👉 Problem
+// Find index of first non-repeating character.
+
+// Input:
+
+// "s = loveleetcode"
+
+
+// Output:
+
+// 2
+
+
+// 💡 Thinking
+
+// Count frequency first
+
+// Traverse string again to find first count = 1
+
+// ✅ TS Code
+
+function firstUniqChar(s: string): number {
+  const freq = new Map<string, number>();
+
+  for (let ch of s) {
+    freq.set(ch, (freq.get(ch) || 0) + 1);
+  }
+
+  for (let i = 0; i < s.length; i++) {
+    if (freq.get(s[i]) === 1) return i;
+  }
+
+  return -1;
+}
+
+
+// ⏱️ TC: O(n)
+// 🧠 SC: O(n)
+// Why: Frequency storage
+
+// 🧠 Pattern: Hashing + second pass
+
