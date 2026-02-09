@@ -626,14 +626,10 @@ function isAnagram(s: string, t: string): boolean {
 // Find index of first non-repeating character.
 
 // Input:
-
 // "s = loveleetcode"
-
-
 // Output:
 
 // 2
-
 
 // 💡 Thinking
 

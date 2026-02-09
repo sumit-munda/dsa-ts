@@ -59,13 +59,13 @@ function sum(arr: number[]) {
 // O(n² + n) → O(n²)
 
 // Common Big-O Notations
-// Big-O	Meaning	            Example
-// O(1)	    Constant	        Access array index
-// O(log n)	Logarithmic	      Binary Search
-// O(n)	    Linear	          Single loop
+// Big-O	  Meaning	            Example
+// O(1)	    Constant	          Access array index
+// O(log n)	Logarithmic	        Binary Search
+// O(n)	    Linear	            Single loop
 // O(n log n)Efficient sorting	Merge Sort
-// O(n²)	Quadratic	          Nested loops
-// O(2ⁿ)	Exponential	        Recursion brute force
+// O(n²)	  Quadratic	          Nested loops
+// O(2ⁿ)	  Exponential	        Recursion brute force
 
 // How to Calculate Time Complexity (Basics)
 // Single Loop
