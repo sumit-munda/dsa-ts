@@ -105,6 +105,8 @@ function reverseString(s: string): string {
 
   return arr.join("");
 }
+// O(n)|O(n): Each character swapped once in-place and split creates an array of length n
+
 // Strings are immutable in JS/TS → you can’t assign s[l] = ...
 // Use while (l < r) for two-pointer swaps
 
@@ -119,10 +121,10 @@ function reverseString2(s: string[]): string {
   }
   return s.join("");
 }
-// O(n)|O(n): Each character swapped once in-place and join creates a string of length n
+// O(n)|O(1): Each character swapped once in-place and join creates an output string of length n (does not add to the space complexity, if )
 
 // console.log(reverseString("hello"));
-// console.log(reverseString2("hello"));
+// console.log(reverseString2(["h", "e", "l", "l", "o"]));
 // Pattern: Two pointers (revese logic)
 
 // Step-wise Time Complexity
@@ -154,7 +156,19 @@ function reverseString2(s: string[]): string {
 
 // 3️ join("")
 //Creates a new string of size n
-// O(n) space
+// O(n) space / Actual memory usage
+// O(1) space / In DSA because join("") does not increase auxiliary space
+
+// Algorithmic space complexity (DSA / interview view)
+// In algorithm analysis, we use auxiliary space:
+// Auxiliary space = extra working memory excluding input and output
+
+// Since:
+// The problem requires returning a string
+// The output itself must exist
+// Output memory is excluded
+
+// So in DSA terms: join("") does not increase auxiliary space
 
 // Problem 4: Best Time to Buy and Sell Stock
 // Maximize profit by buying once and selling once.
@@ -254,7 +268,8 @@ function largestElement(nums: number[]): number {
   let max = nums[0];
 
   for (let i = 1; i < nums.length; i++) {
-    max = Math.max(max, nums[i]);
+    // max = Math.max(max, nums[i]);
+    if (nums[i] > max) max = nums[i]; // micro optimization / avoid function call overhead
   }
   return max;
 }
@@ -337,6 +352,10 @@ function rotateByOne(nums: number[]): void {
     nums[i] = nums[i - 1];
   }
 
+  // Correct But Avoid (expensive)
+  // nums.splice(nums.length - 1, 1);
+  // nums.unshift(last); // O(1) auxiliary space
+
   nums[0] = last;
   console.log(nums);
 }
@@ -359,18 +378,22 @@ function rotateByOne(nums: number[]): void {
 
 // TS Code| GFG: Rotate Array by D Places
 function rotateByD(nums: number[], d: number) {
-  while (d >= 0) {
-    const last = nums[nums.length - 1];
-    for (let i = nums.length - 1; i > 0; i--) {
-      nums[i] = nums[i - 1];
+  d = d % nums.length; // Reduce unnecessary rotations
+
+  while (d > 0) {
+    const last = nums[0];
+    for (let i = 0; i < nums.length - 1; i++) {
+      nums[i] = nums[i + 1];
     }
-    nums[0] = last;
+
+    nums[nums.length - 1] = last;
     d--;
   }
   console.log(nums);
 }
 // O(n²)|O(1): Nested loops
 
+// Best optimal approach (for interviews)
 function reverse(arr: number[], start: number, end: number) {
   while (start < end) {
     [arr[start], arr[end]] = [arr[end], arr[start]];
@@ -653,10 +676,8 @@ function firstUniqChar(s: string): number {
   return -1;
 }
 
-
 // ⏱️ TC: O(n)
 // 🧠 SC: O(n)
 // Why: Frequency storage
 
 // 🧠 Pattern: Hashing + second pass
-

@@ -105,7 +105,7 @@ function countDigits2(n: number): number {
 // console.log(countDigits2(-1234));
 // Pattern: While loop + Math
 
-// Mod n if want last digit every iteration
+// Mod n by 10 if want last digit every iteration
 // log10 + 1 gives no of digits across logic
 // Math.abs(n) - supports negative numbers
 
@@ -199,6 +199,7 @@ function isPalindromeStr(n: number): boolean {
   return reverse === `${n}`;
 }
 // O(d)|O(d): Converts number to string and creates a reversed copy of d digits.
+// Each step processes all d characters.
 
 // console.log(isPalindromeStr(121));
 // Pattern: Reverse logic
@@ -396,3 +397,11 @@ function isArmstrong(n: number): boolean {
 // No arrays/maps → O(1) space
 
 // JS doesn’t have integer division — it returns decimals.
+
+// Space complexity counts how much memory you allocate, not what values those variables hold.
+
+// let digits = n.toString().split("");
+// You are storing all digits, Number of stored elements = number of digits = d
+// d ≈ log₁₀(n) | Space = O(d)
+
+
