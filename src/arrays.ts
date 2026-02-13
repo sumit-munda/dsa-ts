@@ -434,18 +434,32 @@ function rotateByDOP(arr: number[], d: number) {
 // Increment count for each element
 
 // TS Code | GFG: Frequency of Array Elements
-function frequencyCount(nums: number[]) {
+function frequencyCountBruteForce0(nums: number[]) {
   const n = nums.length;
-  const visited = new Array(n).fill(false);
 
   for (let i = 0; i < n; i++) {
-    if (visited[i]) continue;
+    let count = 0;
+
+    for (let j = 0; j < n; j++) {
+      if (nums[i] === nums[j]) count++;
+    }
+
+    console.log(nums[i], "->", count);
+  }
+}
+// O(n²)|O(1): Nested loops | Printing duplicates mutliple times
+
+function frequencyCountBruteForce1(nums: number[]) {
+  const n = nums.length;
+  const vistited = new Array(n).fill(false);
+
+  for (let i = 0; i < n; i++) {
+    if (vistited[i]) continue;
 
     let count = 1;
-
     for (let j = i + 1; j < n; j++) {
       if (nums[i] === nums[j]) {
-        visited[j] = true;
+        vistited[j] = true;
         count++;
       }
     }
@@ -453,9 +467,320 @@ function frequencyCount(nums: number[]) {
     console.log(nums[i], "->", count);
   }
 }
-// O(n²)|O(1): Nested loops
+// O(n²)|O(n): Created new array of size n | We marked visited elements
 
-frequencyCount([1, 2, 2, 1, 3]);
+function frequencyCountSort(nums: number[]) {
+  nums.sort((a, b) => a - b);
+
+  let count = 1;
+  for (let i = 1; i <= nums.length; i++) {
+    if (nums[i] === nums[i - 1]) {
+      count++;
+    } else {
+      console.log(nums[i - 1], "->", count);
+      count = 1; // reset to 1 for the next elm
+    }
+  }
+}
+// O(nlog n)(sorting) + O(n)(counting) = O(nlog n)|O(log n): Space: depends on sorting (usually O(log n)) | But we changed the order of elements
+// Why is Space ≈ O(log n)?
+// We are usually talking about in-place comparison sorting like:
+// Merge Sort (uses O(n))
+// Quick Sort (uses ~O(log n))
+
+// Why QuickSort uses O(log n) space?
+
+// QuickSort is recursive.
+// Each recursive call is stored in the call stack.
+// In average case:
+// The recursion depth is: log n
+// So stack memory:
+// O(log n)
+
+// Example intuition:
+// If array size = 16
+// It splits like:
+// 16
+// 8 + 8
+// 4 + 4
+// 2 + 2
+// 1
+// Depth = log₂(16) = 4
+
+// So only 4 stack frames active at a time.
+
+// ⚠ Worst Case?
+// If pivot is always smallest/largest:
+// Recursion depth becomes: n
+
+// So worst case space:
+// O(n)
+// But average case:
+// O(log n)
+
+// That’s why we write: ~O(log n)
+
+// function frequencyCountHashMap(nums: number[]) {
+function frequencyCountHashMap(nums: number[]): Map<number, number> {
+  const freq = new Map<number, number>();
+
+  for (let num of nums) {
+    freq.set(num, (freq.get(num) || 0) + 1);
+  }
+
+  // for (let [key, value] of freq) {
+  //   console.log(key, "->", value);
+  // }
+
+  return freq;
+}
+// O(n)|O(n): Use a hash map to count in one pass, extra map storage
+
+// Why is Space O(n)?
+// When we use a HashMap:
+// We store elements as: key → value
+
+// If all elements are unique: We store n entries.
+// So: Space = O(n)
+
+// frequencyCountBruteForce0([1, 2, 2, 1, 3]);
+// frequencyCountBruteForce1([1, 2, 2, 1, 3]);
+// frequencyCountSort([1, 2, 2, 1, 3]);
+// console.log(frequencyCountHashMap([1, 2, 2, 1, 3]));
+// Pattern: Hashing/Frequency map
+
+// Problem 2: Find Element Appearing Once
+// Every element appears twice except one. Find that one.
+
+// Input: [4,1,2,1,2]
+
+// Output: 4
+
+// Thinking
+// XOR cancels duplicate numbers
+// a ^ a = 0, a ^ 0 = a
+
+// [2,3,2,4,3] Becomes:
+// 2^3^2^4^3
+// = (2^2) ^ (3^3) ^ 4
+// = 0 ^ 0 ^ 4
+// = 4
+
+// TS Code | LeetCode: #136 | GFG: Single Number
+function findAppearingOnceMi(nums: number[]) {
+  const freq = new Map<number, number>();
+
+  for (let num of nums) {
+    freq.set(num, (freq.get(num) || 0) + 1);
+  }
+
+  for (let [key, value] of freq) {
+    if (value === 1) {
+      return key;
+    }
+  }
+
+  return -1; // if none found
+}
+// O(n)|O(n): Use a hash map to count in one pass, extra map storage
+
+function findAppearingOnceXOR(nums: number[]) {
+  let xor = 0;
+  for (let num of nums) {
+    xor ^= num;
+  }
+
+  return xor;
+}
+// O(n)|O(1): No extra memory, XOR trick
+
+// console.log(findAppearingOnceMi([4, 1, 2, 1, 2]));
+// console.log(findAppearingOnceXOR([4, 1, 2, 1, 2]));
+// Pattern: Bit manipulation + XOR
+
+// Problem 3: Two Sum
+// Return indices of two numbers adding to target.
+
+// Input: nums = [2,7,11,15], target = 9
+// Output: [0,1]
+
+// Thinking
+// Store visited numbers in map
+// Check if target − current exists
+
+// TS Code | LeetCode: #1 | GFG: Two Sum
+function twoSumBF(nums: number[], target: number) {
+  for (let [i, num1] of nums.entries()) {
+    for (let [j, num2] of nums.entries()) {
+      if (i !== j && num1 + num2 === target) {
+        return [i, j];
+      }
+    }
+  }
+
+  return [];
+}
+// O(n²)|O(1): Nested Loops
+
+function twoSumMap(nums: number[], target: number) {
+  const map = new Map<number, number>();
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+
+    if (map.has(complement)) {
+      return [map.get(complement)!, i];
+      // In TypeScript: map.get(key) returns: number | undefined
+    }
+
+    map.set(nums[i], i);
+  }
+
+  return [];
+}
+// O(n)|O(n): Single pass with hashmap, extra map storage
+
+// console.log(twoSumBF([2, 7, 11, 15], 9));
+// console.log(twoSumMap([2, 7, 11, 15], 9));
+// Pattern: Hashing + lookup
+
+// Problem 4: Majority Element
+// Find element appearing more than n/2 times.
+
+// Input: [3,2,3]
+// Output: 3
+
+// Thinking
+// Use Boyer–Moore Voting Algorithm
+// Cancel out different elements
+
+// TS Code | LeetCode: #169 | GFG: Majority Element
+function majorElemMi(nums: number[]) {
+  const n = nums.length;
+  const freq = new Map<number, number>();
+
+  for (let num of nums) {
+    freq.set(num, (freq.get(num) || 0) + 1);
+  }
+
+  for (let [key, value] of freq) {
+    if (value > n / 2) {
+      return key;
+    }
+  }
+  return -1;
+}
+// O(n)|O(n): Use a hash map to count in one pass, extra map storage
+
+function majorElemBM(nums: number[]) {
+  let count = 0;
+  let candidate = 0;
+
+  for (let num of nums) {
+    if (count === 0) {
+      candidate = num;
+    }
+    count += num === candidate ? 1 : -1;
+  }
+
+  return candidate;
+}
+// O(n)|O(1): Single pass, constant memory
+// Optimization: Optimal, no hashmap
+
+// Rules:
+// If count == 0
+// → choose current element as candidate
+// If current element == candidate
+// → increment count
+// Else
+// → decrement count
+
+// Why This Works
+// Majority element appears more than all others combined.
+// So even if: Every non-majority cancels one majority
+// There are still majority elements left
+// It survives.
+
+// console.log(majorElemMi([3, 2, 3]));
+// console.log(majorElemBM([3, 2, 3]));
+// Pattern: Voting algorithm
+
+// Problem 5: Check if Two Arrays Are Equal
+// Check if two arrays contain same elements with same frequency.
+
+// Input:
+// arr1 = [1,2,5,4,0]
+// arr2 = [2,4,5,0,1]
+// Output: true
+
+// Thinking
+// Count frequency of first array
+// Decrease using second array
+
+// TS Code | LeetCode: No | GFG: Check if Two Arrays Are Equal
+
+function freqCheck(nums: number[]) {
+  const freq = new Map<number, number>();
+
+  for (let num of nums) {
+    freq.set(num, (freq.get(num) || 0) + 1);
+  }
+
+  return freq;
+}
+
+function equalArraysMi(nums1: number[], nums2: number[]) {
+  if (nums1.length !== nums2.length) return false;
+
+  const map1 = freqCheck(nums1);
+  const map2 = freqCheck(nums2);
+
+  if (map1.size !== map2.size) return false;
+
+  for (let [key, value] of map1) {
+    if (map2.get(key) !== value) {
+      return false;
+    }
+  }
+
+  return true;
+}
+// O(n)|O(n): Hash map to count frequency, extra map storage
+
+function equalArrays(nums1: number[], nums2: number[]) {
+  if (nums1.length !== nums2.length) return false;
+
+  const freq = new Map<number, number>();
+
+  for (let num of nums1) {
+    freq.set(num, (freq.get(num) || 0) + 1);
+  }
+
+  for (let num of nums2) {
+    if (!freq.has(num) || freq.get(num)! === 0) {
+      return false;
+    }
+    freq.set(num, freq.get(num)! - 1);
+  }
+
+  return true;
+}
+// O(n)|O(n): Extra frequency map
+// Optimization: Sorting avoided
+
+// Reduces the frequency count (It’s like cancelling a match)
+
+// Final map:
+// 1→0
+// 2→0
+// 3→0
+
+// Everything cancelled. Map becomes empty. So arrays are equal.
+
+// console.log(equalArraysMi([1, 2, 5, 4, 0], [2, 4, 5, 0, 1]));
+console.log(equalArrays([1, 2, 5, 4, 0], [2, 4, 5, 0, 1]));
+// Pattern: Hash map comparison
 
 // Problem 2: Count Subarrays with Given Sum (Positive Integers)
 // Count subarrays whose sum equals k (positive numbers only).
