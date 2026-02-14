@@ -633,7 +633,7 @@ function twoSumMap(nums: number[], target: number) {
       // In TypeScript: map.get(key) returns: number | undefined
     }
 
-    map.set(nums[i], i);
+    map.set(nums[i], i); // storing index as value
   }
 
   return [];
@@ -718,7 +718,7 @@ function majorElemBM(nums: number[]) {
 // Count frequency of first array
 // Decrease using second array
 
-// TS Code | LeetCode: No | GFG: Check if Two Arrays Are Equal
+// TS Code | GFG: Check if Two Arrays Are Equal
 
 function freqCheck(nums: number[]) {
   const freq = new Map<number, number>();
@@ -779,7 +779,7 @@ function equalArrays(nums1: number[], nums2: number[]) {
 // Everything cancelled. Map becomes empty. So arrays are equal.
 
 // console.log(equalArraysMi([1, 2, 5, 4, 0], [2, 4, 5, 0, 1]));
-console.log(equalArrays([1, 2, 5, 4, 0], [2, 4, 5, 0, 1]));
+// console.log(equalArrays([1, 2, 5, 4, 0], [2, 4, 5, 0, 1]));
 // Pattern: Hash map comparison
 
 // Problem 2: Count Subarrays with Given Sum (Positive Integers)
@@ -798,70 +798,206 @@ console.log(equalArrays([1, 2, 5, 4, 0], [2, 4, 5, 0, 1]));
 // BATCH 6 – SLIDING WINDOW (SUBARRAY BASICS)
 
 // Problem 1: Maximum Sum Subarray of Size K
-
-//  LeetCode:  | GFG: Maximum Sum Subarray of Size K
-
-//  Problem
 // Find the maximum sum of a subarray of size k.
 
-// Input:
-
-// arr = [2, 1, 5, 1, 3, 2], k = 3
-
-// Output:
-
-// 9
+// Input: arr = [2, 1, 5, 1, 3, 2], k = 3
+// Output: 9
 
 // Thinking
-
 // First window sum
-
 // Slide window by:
-
 // Remove left element
-
 // Add right element
-
 // Track max sum
 
-//  TS Code
+//  TS Code | GFG: Maximum Sum Subarray of Size K
+function maxSubarraySumBF(arr: number[], k: number) {
+  let n = arr.length;
+  let maxSum = -Infinity;
+
+  for (let i = 0; i <= n - k; i++) {
+    let currSum = 0;
+
+    for (let j = 0; j < k; j++) {
+      currSum += arr[i + j];
+    }
+    maxSum = Math.max(maxSum, currSum);
+  }
+  return maxSum;
+}
+// O(n) x O(k) = O(n²)|O(1): Nested Loops
 
 function maxSubarraySum(arr: number[], k: number): number {
-  let windowSum = 0;
+  let windowSum = 0; // window: subarray length
   let maxSum = 0;
 
+  // first window
   for (let i = 0; i < k; i++) {
     windowSum += arr[i];
   }
 
   maxSum = windowSum;
 
+  // slide window
   for (let i = k; i < arr.length; i++) {
-    windowSum += arr[i] - arr[i - k];
+    windowSum += arr[i] - arr[i - k]; // i - length of subarray
     maxSum = Math.max(maxSum, windowSum);
   }
 
   return maxSum;
 }
+// O(n)|O(1): Single traversal, no extra memory
+
+// console.log(maxSubarraySumBF([2, 1, 5, 1, 3, 2], 3));
+// console.log(maxSubarraySum([2, 1, 5, 1, 3, 2], 3));
+// Pattern: Fixed-size sliding window
+
+// We don’t recompute sum every time.
+// Instead:
+// New window sum = Old sum
+//                 - element leaving
+//                 + element entering
+
+// Problem 2: Count Subarrays with Given Sum (Positive Integers)
+// Count subarrays whose sum equals k (positive numbers only).
+
+// Input: arr = [1, 2, 1, 1, 1], k = 3
+// Output: 3
+
+// Thinking
+// Expand window to increase sum
+// Shrink window if sum exceeds k
+// Count when sum equals k
+
+// TS Code | GFG: Subarray with Given Sum
+function countSubarrays(arr: number[], k: number): number {
+  let left = 0;
+  let sum = 0;
+  let count = 0;
+
+  for (let right = 0; right < arr.length; right++) {
+    sum += arr[right]; // expand window
+
+    while (sum > k) {
+      sum -= arr[left]; // shrink window
+      left++;
+    }
+
+    if (sum === k) {
+      count++;
+    }
+  }
+
+  return count;
+}
+// O(n)|O(1): Each element enters & exits window once
+
+// console.log(countSubarrays([1, 2, 1, 1, 1], 3));
+// Pattern: Variable-size sliding window
+
+// Problem 3: Longest Subarray with Sum ≤ K
+// Find length of longest subarray with sum ≤ k.
+
+// Input: arr = [2, 5, 1, 7, 10], k = 14
+// Output: 3
+
+// Thinking
+// Expand window to add elements
+// Shrink when sum exceeds k
+// Track max length
+
+// TS Code | GFG: Longest Subarray with Sum ≤ K
+function longestSubarray(arr: number[], k: number): number {
+  let left = 0;
+  let sum = 0;
+  let length = 0;
+
+  for (let right = 0; right < arr.length; right++) {
+    sum += arr[right];
+
+    // keep shrinking the window until sum <= k
+    while (sum > k) {
+      sum -= arr[left];
+      left++;
+    }
+
+    // after sum <= k check length once
+    length = Math.max(length, right - left + 1);
+  }
+
+  return length;
+}
+// O(n)|O(1): Sliding window, no extra DS
+
+// console.log(longestSubarray([2, 5, 1, 7, 10], 14));
+// Pattern: Window expand + shrink
+
+// Problem 4: Longest Subarray with Sum = K (Positive Numbers)
+// Find longest subarray whose sum equals k.
+
+// Input: arr = [1, 2, 3, 1, 1, 1, 1], k = 3
+// Output: 3
+
+// Thinking
+// Increase sum using right pointer
+// Decrease sum using left pointer
+// Track max length on exact match
+
+// TS Code | GFG: Longest Subarray with Sum K
+function longestSubarraySumK(arr: number[], k: number): number {
+  let left = 0;
+  let sum = 0;
+  let length = 0;
+
+  for (let right = 0; right < arr.length; right++) {
+    sum += arr[right];
+
+    // keep shrinking the window until sum <= k
+    while (sum > k) {
+      sum -= arr[left];
+      left++;
+    }
+
+    if (sum === k) {
+      length = Math.max(length, right - left + 1);
+    }
+  }
+
+  return length;
+}
+// O(n)|O(1): Each element processed once
+
+// console.log(longestSubarraySumK([1, 2, 3, 1, 1, 1, 1], 3));
+// Pattern: Variable-size window (exact sum)
+// Optimization: Hashing needed if negatives exist
 
 // Problem 5: Maximum Consecutive Ones
-
-//  LeetCode: #485 | GFG: Max Consecutive Ones
-
-//  Problem
 // Find maximum number of consecutive 1s.
 
-// Input:
-// [1,1,0,1,1,1]
-// Output:
-// 3
-//  Thinking
+// Input: [1,1,0,1,1,1]
+// Output: 3
 
+// Thinking
 // Count continuous ones
-
 // Reset on zero
 
-//  TS Code
+// TS Code | LeetCode: #485 | GFG: Max Consecutive Ones
+function findMaxConsecutiveOnesSLW(nums: number[]): number {
+  let left = 0;
+  let length = 0;
+
+  for (let right = 0; right < nums.length; right++) {
+    if (nums[right] === 0) {
+      left = right + 1;
+    }
+
+    length = Math.max(length, right - left + 1);
+  }
+
+  return length;
+}
+// O(n)|O(1): Sliding window, no extra DS
+// This is logically correct, but over-engineered for this problem.
 
 function findMaxConsecutiveOnes(nums: number[]): number {
   let count = 0;
@@ -878,89 +1014,11 @@ function findMaxConsecutiveOnes(nums: number[]): number {
 
   return maxCount;
 }
+// O(n)|O(1): Simple linear scan
 
-// Problem 4: Longest Subarray with Sum = K (Positive Numbers)
-//  LeetCode: | GFG: Longest Subarray with Sum K
-// Problem
-// Find longest subarray whose sum equals k.
-// Input:
-// arr = [1, 2, 3, 1, 1, 1, 1], k = 3
-// Output:
-// 3
-// Thinking
-// Increase sum using right pointer
-// Decrease sum using left pointer
-// Track max length on exact match
-
-// TS Code
-
-function longestSubarraySumK(arr: number[], k: number): number {
-  let left = 0;
-  let sum = 0;
-  let maxLen = 0;
-
-  for (let right = 0; right < arr.length; right++) {
-    sum += arr[right];
-
-    while (sum > k) {
-      sum -= arr[left];
-      left++;
-    }
-
-    if (sum === k) {
-      maxLen = Math.max(maxLen, right - left + 1);
-    }
-  }
-
-  return maxLen;
-}
-
-//  TC: O(n)
-//  SC: O(1)
-// Why: Each element processed once
-
-// Pattern: Variable-size window (exact sum)
-
-// Problem 3: Longest Subarray with Sum ≤ K
-// LeetCode:  | GFG: Longest Subarray with Sum ≤ K
-
-//  Problem
-// Find length of longest subarray with sum ≤ k.
-
-// Input:
-// arr = [2, 5, 1, 7, 10], k = 14
-// Output:
-// 3
-
-//  Thinking
-// Expand window to add elements
-// Shrink when sum exceeds k
-// Track max length
-//  TS Code
-
-function longestSubarray(arr: number[], k: number): number {
-  let left = 0;
-  let sum = 0;
-  let maxLen = 0;
-
-  for (let right = 0; right < arr.length; right++) {
-    sum += arr[right];
-
-    while (sum > k) {
-      sum -= arr[left];
-      left++;
-    }
-
-    maxLen = Math.max(maxLen, right - left + 1);
-  }
-
-  return maxLen;
-}
-
-//  TC: O(n)
-//  SC: O(1)
-// Why: Sliding window, no extra DS
-// Pattern: Window expand + shrink
+// console.log(findMaxConsecutiveOnesSLW([1, 1, 0, 1, 1, 1]));
+// console.log(findMaxConsecutiveOnes([1, 1, 0, 1, 1, 1]));
+// Pattern: Running count
 
 function isAnagram(s: string, t: string): boolean {
   if (s.length !== t.length) return false;
