@@ -243,7 +243,7 @@ function moveZeroes2(nums: number[]): number[] {
   return nums;
 }
 
-// in-place swap
+// in-place swap | swap k and i index element from the start
 // O(n)|O(1): Two linear passes, in-place
 
 // console.log(moveZeroes([0, 1, 0, 3, 12]));
@@ -584,6 +584,11 @@ function findAppearingOnceMi(nums: number[]) {
 }
 // O(n)|O(n): Use a hash map to count in one pass, extra map storage
 
+function findAppearingOnceUsingReduce(nums: number[]) {
+  return nums.reduce((acc, cur) => acc ^ cur, 0);
+}
+// O(n)|O(1): reduce() iterates once over the array
+
 function findAppearingOnceXOR(nums: number[]) {
   let xor = 0;
   for (let num of nums) {
@@ -595,6 +600,7 @@ function findAppearingOnceXOR(nums: number[]) {
 // O(n)|O(1): No extra memory, XOR trick
 
 // console.log(findAppearingOnceMi([4, 1, 2, 1, 2]));
+// console.log(findAppearingOnceUsingReduce([4, 1, 2, 1, 2]));
 // console.log(findAppearingOnceXOR([4, 1, 2, 1, 2]));
 // Pattern: Bit manipulation + XOR
 
@@ -759,6 +765,7 @@ function equalArrays(nums1: number[], nums2: number[]) {
 
   for (let num of nums2) {
     if (!freq.has(num) || freq.get(num)! === 0) {
+      // if we don’t check this, we would reduce it to -1
       return false;
     }
     freq.set(num, freq.get(num)! - 1);
@@ -1018,54 +1025,150 @@ function findMaxConsecutiveOnes(nums: number[]): number {
 
 // console.log(findMaxConsecutiveOnesSLW([1, 1, 0, 1, 1, 1]));
 // console.log(findMaxConsecutiveOnes([1, 1, 0, 1, 1, 1]));
-// Pattern: Running count
+// Pattern: Running count (Try using map)
+
+// BATCH 7 – STRINGS (BASICS + HASHING)
+
+// Problem 1: Reverse a String
+// Reverse the given string.
+
+// Input: "s = hello"
+// Output: "olleh"
+
+// Thinking
+// Convert string to array
+// Swap characters from both ends
+
+// TS Code | LeetCode: #344 | GFG: Reverse a String
+function reverseStringB7(s: string): string {
+  const arr = s.split("");
+  let left = 0;
+  let right = arr.length - 1;
+
+  // creates a small temporary array internally (so you can use temp var)
+  while (left < right) {
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+    left++;
+    right--;
+  }
+
+  return arr.join("");
+}
+// O(n)|O(n): Strings are immutable, array used
+
+// console.log(reverseStringB7("hello"));
+// Pattern: Two pointers
+// Optimization: In-place not possible for strings
+
+// Problem 2: Check Palindrome String
+// Check if a string is palindrome.
+
+// Input: "madam"
+// Output: true
+
+// Thinking
+// Compare characters from both ends
+// Stop early on mismatch
+
+// TS Code |LeetCode: #125 | GFG: Palindrome String
+function isPalindromeB7(s: string): boolean {
+  let l = 0;
+  let r = s.length - 1;
+
+  while (l < r) {
+    if (s[l] !== s[r]) return false;
+    l++;
+    r--;
+  }
+
+  return true;
+}
+// O(n)|O(1): No extra memory used
+
+// console.log(isPalindromeB7("madam"));
+// Pattern: Two pointers + comparison
+// Optimization: Early exit
+
+// Problem 3: Valid Anagram
+// Check if two strings are anagrams.
+
+// Two strings are anagrams if:
+// They have the same length
+// They contain the same characters
+// Each character appears the same number of times
+
+// Input: s = "anagram", t = "nagaram"
+// Output: true
+
+// Thinking
+// Count frequency of characters
+// Compare counts
+
+// TS Code | LeetCode: #242 | GFG: Anagram
 
 function isAnagram(s: string, t: string): boolean {
   if (s.length !== t.length) return false;
 
   const freq = new Map<string, number>();
 
-  for (let ch of s) {
-    freq.set(ch, (freq.get(ch) || 0) + 1);
+  for (let char of s) {
+    freq.set(char, (freq.get(char) || 0) + 1);
   }
 
-  for (let ch of t) {
-    if (!freq.has(ch) || freq.get(ch)! === 0) {
+  for (let char of t) {
+    if (!freq.has(char) || freq.get(char)! === 0) {
       return false;
     }
-    freq.set(ch, freq.get(ch)! - 1);
+    freq.set(char, freq.get(char)! - 1);
   }
 
   return true;
 }
+// O(n)|O(n): Extra frequency map
+
+// console.log(isAnagram("anagram", "nagaram"));
+// Pattern: Hashing / frequency map
 
 // Problem 4: First Unique Character
-
-// 📌 LeetCode: #387 | GFG: First Non-Repeating Character
-
-// 👉 Problem
 // Find index of first non-repeating character.
 
-// Input:
-// "s = loveleetcode"
-// Output:
+// Input: "s = loveleetcode"
+// Output: 2
 
-// 2
-
-// 💡 Thinking
-
+// Thinking
 // Count frequency first
-
 // Traverse string again to find first count = 1
 
-// ✅ TS Code
+// TS Code | LeetCode: #387 | GFG: First Non-Repeating Character
+function firstUniqCharBF(s: string): number {
+  for (let i = 0; i < s.length; i++) {
+    let unique = true;
+
+    for (let j = 0; j < s.length; j++) {
+      if (i !== j && s[i] === s[j]) {
+        unique = false;
+        break;
+      }
+    }
+
+    if (unique) return i;
+  }
+
+  return -1;
+}
+//  O(n²)|O(1): Nested loops
 
 function firstUniqChar(s: string): number {
   const freq = new Map<string, number>();
 
-  for (let ch of s) {
-    freq.set(ch, (freq.get(ch) || 0) + 1);
+  for (let char of s) {
+    freq.set(char, (freq.get(char) || 0) + 1);
   }
+
+  // for (let [key, val] of freq) {
+  //   if (val === 1) return s.indexOf(key);
+  //   if(freq.get(key) === 1) return s.indexOf(key)
+  // }
 
   for (let i = 0; i < s.length; i++) {
     if (freq.get(s[i]) === 1) return i;
@@ -1073,9 +1176,41 @@ function firstUniqChar(s: string): number {
 
   return -1;
 }
+// O(n)|O(n): Frequency storage
 
-// ⏱️ TC: O(n)
-// 🧠 SC: O(n)
-// Why: Frequency storage
+// console.log(firstUniqCharBF("loveleetcode"));
+// console.log(firstUniqChar("loveleetcode"));
+// Pattern: Hashing + second pass
 
-// 🧠 Pattern: Hashing + second pass
+// Problem 5: Check if String Contains Only Digits
+// Check if string contains only digits.
+
+// Input: "12345"
+// Output: true
+
+// Thinking
+// Check ASCII range of digits
+// Early exit on invalid character
+
+// TS Code | GFG: Check if string is numeric
+function isNumericBF(s: string): boolean {
+  for (let char of s) {
+    if (isNaN(+char)) return false; // converision overhead
+  }
+
+  return true;
+}
+// O(n)|O(1): Single loop
+
+function isNumeric(s: string): boolean {
+  for (let ch of s) {
+    if (ch < "0" || ch > "9") return false;
+  }
+
+  return true;
+}
+// O(n)|O(1): Constant extra space
+
+// console.log(isNumericBF("12345"));
+// console.log(isNumeric("12345"));
+// Pattern: Character validation
