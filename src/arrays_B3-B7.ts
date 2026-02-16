@@ -789,19 +789,6 @@ function equalArrays(nums1: number[], nums2: number[]) {
 // console.log(equalArrays([1, 2, 5, 4, 0], [2, 4, 5, 0, 1]));
 // Pattern: Hash map comparison
 
-// Problem 2: Count Subarrays with Given Sum (Positive Integers)
-// Count subarrays whose sum equals k (positive numbers only).
-
-// Input: arr = [1, 2, 1, 1, 1], k = 3
-// Output: 3
-
-// Thinking
-// Expand window to increase sum
-// Shrink window if sum exceeds k
-// Count when sum equals k
-
-// TS Code | GFG: Subarray with Given Sum
-
 // BATCH 6 – SLIDING WINDOW (SUBARRAY BASICS)
 
 // Problem 1: Maximum Sum Subarray of Size K
