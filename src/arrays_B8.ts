@@ -438,3 +438,318 @@ function reverseArray(arr: number[], left: number, right: number): void {
 // Binary recursion
 // Backtracking
 // Tree problems
+
+// BATCH 10 – SORTING (Basic Sorting Algorithms)
+
+// 1️ Bubble Sort
+
+// Idea:
+// Repeatedly swap adjacent elements if they are in wrong order.
+// Largest element “bubbles” to the end each pass.
+
+// Complexity:
+// Worst: O(n²)
+// Best: O(n) (with optimization)
+// Space: O(1)
+// Stable: Yes
+
+// Use When:
+// Small arrays
+// Educational purpose
+
+// 2️ Selection Sort
+
+// Idea:
+// Find the minimum element and place it at correct position.
+
+// Complexity:
+// Worst: O(n²)
+// Best: O(n²)
+// Space: O(1)
+// Stable: No (by default)
+
+// Key Point:
+// Always does n² comparisons
+// Fewer swaps than bubble sort
+
+// 3️ Insertion Sort
+
+// Idea:
+// Build sorted portion one element at a time.
+// Insert each element into correct position.
+
+// Complexity:
+// Worst: O(n²)
+// Best: O(n) (already sorted)
+// Space: O(1)
+// Stable: Yes
+
+// Use When:
+// Nearly sorted arrays
+// Small datasets
+
+// 4️ Merge Sort
+
+// Idea:
+// Divide array into halves → sort → merge.
+
+// Complexity:
+// Time: O(n log n)
+// Space: O(n)
+// Stable: Yes
+
+// Type:
+// Divide & Conquer
+
+// 5️ Quick Sort
+
+// Idea:
+// Pick pivot → partition → recursively sort halves.
+
+// Complexity:
+// Best/Average: O(n log n)
+// Worst: O(n²)
+// Space: O(log n)
+// Stable: No
+
+// Fast in practice.
+
+// Quick Comparison Table
+// Algorithm	Best	    Worst	    Space	    Stable
+// Bubble	    O(n)	    O(n²)	    O(1)	    ✅
+// Selection	O(n²)	    O(n²)	    O(1)	    ❌
+// Insertion	O(n)	    O(n²)	    O(1)	    ✅
+// Merge	   O(n log n)	O(n log n)O(n)	    ✅
+// Quick	   O(n log n)	O(n²)	    O(log n)	❌
+
+// Interview Tips
+// For small arrays → Insertion sort
+// For guaranteed O(n log n) → Merge sort
+// For fastest practical performance → Quick sort
+// Bubble/Selection mostly for fundamentals
+
+// Problem 1: Bubble Sort
+// Sort array using Bubble Sort.
+
+// Input: [5, 1, 4, 2, 8]
+// Output: [1, 2, 4, 5, 8]
+
+// Thinking
+// Compare adjacent elements
+// Swap if wrong order
+// Largest element bubbles to end each pass
+
+// TS Code | GFG: Bubble Sort
+function bubbleSortBF(arr: number[]): number[] {
+  let n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 1; j < n - i; j++) {
+      if (arr[j] < arr[j - 1]) {
+        [arr[j], arr[j - 1]] = [arr[j - 1], arr[j]];
+      }
+    }
+  }
+
+  return arr;
+}
+// Problem:
+// Even if the array becomes sorted early,
+// the outer loop still continues.
+
+function bubbleSort(arr: number[]): number[] {
+  const n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    let swapped = false; // track swaps
+
+    for (let j = 0; j < n - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+        swapped = true;
+      }
+    }
+
+    if (!swapped) break; // stop early if no swaps
+  }
+
+  return arr;
+}
+// O(n²) worst|O(1): Nested loops, in-place
+// Optimization: Stop early if already sorted
+
+// console.log(bubbleSortBF([5, 1, 4, 2, 8]));
+// console.log(bubbleSort([5, 1, 4, 2, 8]));
+// Pattern: Adjacent comparison
+
+// What Each Loop Does
+// Outer Loop (j loop)
+// for (let j = 0; j < arr.length - 1; j++)
+
+// Purpose: Controls the number of passes.
+// Each pass: Moves the largest unsorted element to its correct position at the end.
+
+// Why arr.length - 1 times?
+
+// In worst case:
+// After first pass → largest element fixed
+// After second pass → second largest fixed
+// …
+// After n-1 passes → fully sorted
+
+// So maximum passes = n - 1
+
+// Inner Loop (i loop)
+// for (let i = 1; i < arr.length - j; i++)
+
+// Purpose: Compares adjacent elements and swaps if needed.
+
+// Why arr.length - j?
+
+// After each pass:
+// Last j elements are already sorted
+// No need to check them again
+// So inner loop shrinks each time.
+
+// Problem 2: Selection Sort
+
+// Input: [64, 25, 12, 22, 11]
+// Output: [11, 12, 22, 25, 64]
+
+// Thinking
+// Find minimum element
+// Swap with first unsorted position
+// Repeat
+
+// TS Code | GFG: Selection Sort
+
+function selectionSort(arr: number[]): number[] {
+  const n = arr.length;
+
+  for (let i = 0; i < n - 1; i++) {
+    // n - 1 passes
+    let minIndex = i;
+
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j; // find minElem
+      }
+    }
+
+    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]; // swap with first unsorted
+  }
+
+  return arr;
+}
+// O(n²)|O(1): Always full inner loop
+// Optimization: Fewer swaps than Bubble
+
+// console.log(selectionSort([64, 25, 12, 22, 11]));
+// Pattern: Find minimum each round
+
+// Problem 3: Insertion Sort
+
+// Input: [12, 11, 13, 5, 6]
+// Output: [5, 6, 11, 12, 13]
+
+// Thinking
+// Assume first element sorted
+// Insert next element in correct position
+// Shift elements right
+
+// TS Code | GFG: Insertion Sort
+function insertionSort(arr: number[]): number[] {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i]; // first unsorted element
+    let j = i - 1; // sorted position
+
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j]; // shift bigger right
+      j--; // keep moving left until correct position found
+    }
+
+    arr[j + 1] = key;
+  }
+
+  return arr;
+}
+// O(n²) worst|O(1): Shifting inside loop
+// Optimization: Best case (already sorted) → O(n)
+
+// console.log(insertionSort([12, 11, 13, 5, 6]));
+// Pattern: Insert into sorted portion
+
+// Idea of Insertion Sort
+// Think like sorting cards in your hand.
+// First card is already sorted.
+// Pick next card.
+// Insert it into correct position among sorted cards.
+
+// Outer Loop (i loop)
+// for (let i = 1; i < arr.length; i++)
+
+// What it does:
+// Treats arr[0] as already sorted.
+// Starts from index 1.
+// Expands sorted portion one element at a time.
+// After each iteration:
+// arr[0..i] is sorted
+
+// key Variable
+// let key = arr[i];
+// This is the element we want to insert into the sorted portion.
+
+// j Variable
+// let j = i - 1;
+// We start checking from the last element of sorted portion.
+
+// While Loop
+// while (j >= 0 && arr[j] > key)
+
+// What it does:
+// Shift bigger elements one step right.
+// Keep moving left until correct position found.
+
+// Problem 4: Recursive Bubble Sort
+
+// Thinking
+// Do one pass
+// Recursively sort remaining array
+
+// TS Code | GFG: Recursive Bubble Sort
+function recursiveBubbleSort(arr: number[], n: number): void {
+  if (n === 1) return;
+
+  for (let i = 0; i < n - 1; i++) {
+    if (arr[i] > arr[i + 1]) {
+      [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+    }
+  }
+
+  recursiveBubbleSort(arr, n - 1);
+}
+// O(n²)|O(n) (recursion stack)
+
+// recursiveBubbleSort([12, 11, 13, 5, 6], 5);
+// Pattern: Shrinking problem size
+
+// Problem 5: Check if Array is Sorted (Recursively)
+
+// Thinking
+// Compare first two
+// Recur for rest
+
+// TS Code | GFG: Check Sorted (Recursive)
+function isSortedRecursive(arr: number[], n: number): boolean {
+  if (n === 1) return true;
+
+  if (arr[n - 2] > arr[n - 1]) return false;
+
+  return isSortedRecursive(arr, n - 1);
+}
+// O(n)|O(n)
+
+// console.log(isSortedRecursive([ 5, 6, 11, 12, 13 ], 5));
+// console.log(isSortedRecursive([12, 11, 13, 5, 6], 5));
+// Pattern: Divide & reduce
+
