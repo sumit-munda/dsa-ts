@@ -584,7 +584,7 @@ function bubbleSort(arr: number[]): number[] {
 
 // What Each Loop Does
 // Outer Loop (j loop)
-// for (let j = 0; j < arr.length - 1; j++)
+// for (let i = 0; i < arr.length - 1; i++)
 
 // Purpose: Controls the number of passes.
 // Each pass: Moves the largest unsorted element to its correct position at the end.
@@ -599,15 +599,15 @@ function bubbleSort(arr: number[]): number[] {
 
 // So maximum passes = n - 1
 
-// Inner Loop (i loop)
-// for (let i = 1; i < arr.length - j; i++)
+// Inner Loop (j loop)
+// for (let j = 1; j < arr.length - i; j++)
 
 // Purpose: Compares adjacent elements and swaps if needed.
 
-// Why arr.length - j?
+// Why arr.length - i?
 
 // After each pass:
-// Last j elements are already sorted
+// Last i elements are already sorted
 // No need to check them again
 // So inner loop shrinks each time.
 
@@ -753,3 +753,180 @@ function isSortedRecursive(arr: number[], n: number): boolean {
 // console.log(isSortedRecursive([12, 11, 13, 5, 6], 5));
 // Pattern: Divide & reduce
 
+// Batch 11: Merge Sort (Divide & Conquer) & Quick Sort
+
+// Problem 1: Merge Sort
+// Sort an array using Merge Sort
+
+// Input: arr = [5, 2, 8, 1, 3]
+// Output: [1, 2, 3, 5, 8]
+
+// Thinking
+// Divide array into two halves
+// Recursively sort both halves
+// Merge two sorted arrays
+// Base case → array length ≤ 1
+
+// Divide & Conquer approach
+
+// TS Code | LeetCode #912 | GFG: Merge Sort
+function mergeSort(arr: number[]): number[] {
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
+}
+
+function merge(left: number[], right: number[]): number[] {
+  let result: number[] = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < left.length && j < right.length) {
+    // while both arrays still have elements
+    if (left[i] <= right[j]) {
+      result.push(left[i++]); // use current value and then increment
+    } else {
+      result.push(right[j++]);
+    }
+  }
+
+  // The moment one finishes:
+  // We stop comparing
+  // Append remaining elements directly
+
+  return result.concat(left.slice(i)).concat(right.slice(j));
+}
+// O(n log n):log n levels × n merging each level|O(n):extra array used for merging
+
+console.log(mergeSort([5, 2, 8, 1, 3]));
+// Pattern: Divide & Conquer
+// Good for linked lists
+
+// Merge Sort Without Array Methods
+
+function mergeSortBF(arr: number[]): number[] {
+  const temp = new Array(arr.length);
+  divide(arr, temp, 0, arr.length - 1);
+  return arr;
+}
+
+function divide(
+  arr: number[],
+  temp: number[],
+  left: number,
+  right: number,
+): void {
+  if (left >= right) return;
+
+  const mid = Math.floor((left + right) / 2);
+
+  divide(arr, temp, left, mid);
+  divide(arr, temp, mid + 1, right);
+
+  mergeBF(arr, temp, left, mid, right);
+}
+
+function mergeBF(
+  arr: number[],
+  temp: number[],
+  left: number,
+  mid: number,
+  right: number,
+): void {
+  let i = left; // left half pointer
+  let j = mid + 1; // right half pointer
+  let k = left; // temp array pointer
+
+  while (i <= mid && j <= right) {
+    if (arr[i] <= arr[j]) {
+      temp[k] = arr[i++];
+      // i++;
+    } else {
+      temp[k] = arr[j++];
+      // j++;
+    }
+    k++;
+  }
+
+  // remaining left half
+  while (i <= mid) {
+    temp[k++] = arr[i++];
+    // i++;
+    // k++;
+  }
+
+  // remaining right half
+  while (j <= right) {
+    temp[k++] = arr[j++];
+    // j++;
+    // k++;
+  }
+
+  // copy back to original array
+  for (let p = left; p <= right; p++) {
+    arr[p] = temp[p];
+  }
+}
+// console.log(mergeSortBF([12, 11, 13, 5, 6]));
+
+// Your previous version:
+// Time: O(n log n)
+// Space: O(n) + extra slicing overhead
+
+// This version:
+// Time: O(n log n)
+// Space: O(n) only (one temp array)
+
+// More memory-efficient and more “system-level correct”.
+
+// Problem 2: Quick Sort
+// Sort an array using Quick Sort
+
+// Input: arr = [5, 2, 8, 1, 3]
+// Output: [1, 2, 3, 5, 8]
+
+// Thinking
+// Choose a pivot
+// Place pivot at correct position
+// Elements smaller → left
+// Elements greater → right
+// Recursively sort left & right
+
+// Divide & Conquer but in-place
+
+// TS Code | LeetCode #912 | GFG: Quick Sort
+function quickSort(arr: number[], low: number, high: number): void {
+  if (low < high) {
+    const pivotIndex = partition(arr, low, high);
+
+    quickSort(arr, low, pivotIndex - 1);
+    quickSort(arr, pivotIndex + 1, high);
+  }
+}
+
+// work: place the pivot element in its correct sorted position
+// Left of pivot  → smaller elements
+// Right of pivot → greater elements
+function partition(arr: number[], low: number, high: number): number {
+  const pivot = arr[high]; // we choose last element as pivot
+  let i = low - 1;
+
+  for (let j = low; j < high; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+
+  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]]; // pivot at correct position
+  return i + 1;
+}
+// O(n²)|O(n)
+
+// quickSort([5, 2, 8, 1, 3], 0, 5);
+// Pattern: Partition + Divide & Conquer
+// In-place sorting
