@@ -417,6 +417,28 @@ function reverseArray(arr: number[], left: number, right: number): void {
 // console.log(nums);
 // Pattern: Two pointers + recursion
 
+// Problem 6: Fibonacci
+// Return nth Fibonacci number.
+
+// Input: n = 6
+// Output: 8
+
+// Thinking
+// fib(n) = fib(n-1) + fib(n-2)
+// Base case → n ≤ 1
+
+// TS CodeLeetCode: #509 | GFG: Fibonacci Series
+function fibonacci(n: number): number {
+  if (n <= 1) return n;
+
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+// O(2^n)|O(n): Two recursive branches
+// Optimization: Use DP → O(n)
+
+// console.log(fibonacci(6));
+// Pattern: Binary recursion tree
+
 // Important Recursion Notes (Do NOT Skip)
 // Every recursion needs:
 // Base case
@@ -802,7 +824,7 @@ function merge(left: number[], right: number[]): number[] {
 }
 // O(n log n):log n levels × n merging each level|O(n):extra array used for merging
 
-console.log(mergeSort([5, 2, 8, 1, 3]));
+// console.log(mergeSort([5, 2, 8, 1, 3]));
 // Pattern: Divide & Conquer
 // Good for linked lists
 
@@ -917,6 +939,7 @@ function partition(arr: number[], low: number, high: number): number {
 
   for (let j = low; j < high; j++) {
     if (arr[j] < pivot) {
+      // if small keep increasing the space of smaller elements
       i++;
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
@@ -930,3 +953,81 @@ function partition(arr: number[], low: number, high: number): number {
 // quickSort([5, 2, 8, 1, 3], 0, 5);
 // Pattern: Partition + Divide & Conquer
 // In-place sorting
+
+// Batch 12: (Recursion Continued)
+
+// Problem 1: Power (xⁿ)
+// Compute x raised to power n.
+
+// Input:
+// x = 2
+// n = 5
+
+// Output: 32
+
+// Thinking
+// Naive:
+// xⁿ = x × xⁿ⁻¹
+
+// Better (Divide & Conquer):
+// If n even → (x^(n/2))²
+// If n odd → x × (x^(n/2))²
+
+// This reduces calls drastically.
+
+// TS Code | LeetCode: #50 | GFG: Power using recursion
+function powerNaive(x: number, n: number): number {
+  if (n === 0) return 1;
+
+  return x * power(x, n - 1);
+}
+// O(n): Each call reduces n by 1, Number of calls = n
+// O(n): ecursive stack depth = n
+
+function power(x: number, n: number): number {
+  if (n === 0) return 1;
+
+  const half = power(x, Math.floor(n / 2));
+
+  if (n % 2 === 0) {
+    return half * half;
+  } else {
+    return x * half * half;
+  }
+}
+// O(log n)|O(log n): Problem size halves each step
+
+// console.log(powerNaive(2, 5));
+// console.log(power(2, 5));
+// Pattern: Divide & Conquer recursion
+
+// Problem 2: Sum of Digits
+
+// 👉 Problem
+// Return sum of digits of a number.
+
+// Input:
+// n = 1234
+
+// Output:
+// 10
+
+// 💡 Thinking
+
+// Take last digit → n % 10
+// Remove last digit → Math.floor(n / 10)
+// Add recursively
+// Base case → n === 0
+
+// TS Code | LeetCode: #258 | GFG: Sum of digits
+function sumOfDigitsRec(n: number): number {
+  if (n === 0) return 0;
+
+  return (n % 10) + sumOfDigitsRec(Math.floor(n / 10));
+}
+//  O(d)|O(d): d = number of digits
+
+// console.log(sumOfDigitsRec(121));
+// Pattern: Remove last digit recursively
+// Optimization: Iterative loop works same
+
