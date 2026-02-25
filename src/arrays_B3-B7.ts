@@ -938,7 +938,7 @@ function longestSubarray(arr: number[], k: number): number {
 // Track max length on exact match
 
 // TS Code | GFG: Longest Subarray with Sum K
-function longestSubarraySumK(arr: number[], k: number): number {
+function longestSubarraySumKSW(arr: number[], k: number): number {
   let left = 0;
   let sum = 0;
   let length = 0;
@@ -961,7 +961,7 @@ function longestSubarraySumK(arr: number[], k: number): number {
 }
 // O(n)|O(1): Each element processed once
 
-// console.log(longestSubarraySumK([1, 2, 3, 1, 1, 1, 1], 3));
+// console.log(longestSubarraySumKSW([1, 2, 3, 1, 1, 1, 1], 3));
 // Pattern: Variable-size window (exact sum)
 // Optimization: Hashing needed if negatives exist
 

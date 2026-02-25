@@ -164,12 +164,13 @@ function toArray(head: ListNode | null): number[] {
   return arr;
 }
 
-// let head: ListNode | null = null;
+let head: ListNode | null = null;
 
-// head = insertAtBeginning(head, 4);
-// head = insertAtBeginning(head, 3);
-// head = insertAtBeginning(head, 2);
-// head = insertAtBeginning(head, 1);
+head = insertAtBeginning(head, 5);
+head = insertAtBeginning(head, 4);
+head = insertAtBeginning(head, 3);
+head = insertAtBeginning(head, 2);
+head = insertAtBeginning(head, 1);
 
 // console.log(toArray(head));
 
@@ -209,7 +210,96 @@ function deleteNode(head: ListNode | null, val: number): ListNode | null {
 }
 
 // O(n)|O(1): Traverse once
+// deleteNode(head, 3);
+// console.log(toArray(head));
 
 // Pattern: Prev & curr pointer
 // Optimization: Single traversal
 
+// Problem 3: Reverse Linked List
+// Reverse a singly linked list.
+
+// Input: 1 → 2 → 3 → 4
+// Output: 4 → 3 → 2 → 1
+
+// Thinking
+// Use three pointers:
+// prev, curr, next
+// Reverse link direction
+
+// TS Code | LeetCode: #206 | GFG: Reverse a Linked List
+function reverseList(head: ListNode | null): ListNode | null {
+  let prev: ListNode | null = null;
+  let curr = head;
+
+  while (curr) {
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+
+  return prev;
+}
+// O(n)|O(1): Only pointer updates
+// console.log(toArray(reverseList(head)));
+
+// Pattern: Three-pointer reversal
+// Optimization: Iterative avoids recursion stack
+
+// Problem 4: Find Middle of Linked List
+// Find middle node of linked list.
+
+// Input: 1 → 2 → 3 → 4 → 5
+// Output: 3
+
+// Thinking
+// Use slow & fast pointer
+// Fast moves 2 steps
+// Slow moves 1 step
+// When fast ends → slow at middle
+
+// TS Code | LeetCode: #876 | GFG: Find middle element
+function middleNode(head: ListNode | null): ListNode | null {
+  let slow = head;
+  let fast = head;
+
+  while (fast && fast.next) {
+    slow = slow!.next;
+    fast = fast.next.next;
+  }
+
+  return slow;
+}
+// O(n)|O(1): Single traversal
+// console.log(middleNode(head));
+
+// Pattern: Slow & Fast pointer
+// Optimization: Most efficient approach
+
+// Problem 5: Detect Cycle in Linked List
+// Check if linked list contains a cycle.
+
+// Thinking
+// Use slow & fast pointer
+// If they meet → cycle exists
+
+// TS Code | LeetCode: #141 | GFG: Detect Loop in Linked List
+function hasCycle(head: ListNode | null): boolean {
+  let slow = head;
+  let fast = head;
+
+  while (fast && fast.next) {
+    slow = slow!.next;
+    fast = fast.next.next;
+
+    if (slow === fast) return true;
+  }
+
+  return false;
+}
+// O(n)|O(1): No extra data structure
+console.log(hasCycle(head));
+
+// Pattern: Floyd’s Cycle Detection
+// Optimization: Optimal solution
