@@ -172,6 +172,9 @@ function binarySearchRec(
 // If you use low <= high then: high = mid - 1
 // If you use low < high then: high = mid
 
+// let high = arr.length; // IMPORTANT: not arr.length - 1
+// then it's followed by low < high and high = mid
+
 // Problem 3: First and Last Position of Element
 
 // Input:
@@ -242,6 +245,7 @@ function searchRangeOpt(nums: number[], target: number): number[] {
   const first = lowerBoundOpt(nums, target);
   const last = lowerBoundOpt(nums, target + 1) - 1;
 
+  // target bigger than all elements, target falls between numbers but doesn't exist
   if (first === nums.length || nums[first] !== target) {
     return [-1, -1];
   }
@@ -344,7 +348,7 @@ function searchInsert(nums: number[], target: number): number {
 // Check mid * mid
 // Keep best valid answer
 
-// TS Code |LeetCode: 69 – Sqrt(x) | GFG: Square Root of a Number 
+// TS Code |LeetCode: 69 – Sqrt(x) | GFG: Square Root of a Number
 function mySqrt(x: number): number {
   if (x < 2) return x;
 
@@ -370,3 +374,340 @@ function mySqrt(x: number): number {
 
 // Pattern: Binary Search on Answer
 // Optimization: Avoid floating point operations.
+
+// 90% interview binary search problems use universal template
+
+// The Universal Binary Search Template (to find boundary)
+function binarySearchUT(arr: number[], target: number): number {
+  let low = 0;
+  let high = arr.length;
+
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+
+    if (arr[mid] >= target) {
+      // whatever condition(arr[mid], target)
+      high = mid;
+    } else {
+      low = mid + 1;
+    }
+  }
+
+  return low;
+}
+
+// The Universal Template can also find exact element,
+// it return low, but does not guarantee the exact element found or not
+function search(arr: number[], target: number): number {
+  const index = binarySearchUT(arr, target);
+  return arr[index] === target ? index : -1;
+}
+// console.log(search([1, 3, 4, 5, 5, 6], 6));
+
+// Move HIGH when condition is true
+// Move LOW when condition is false
+
+// This is the one universal binary search template. From this single pattern, you can derive:
+// Lower Bound
+// Upper Bound
+// First Occurrence
+// Last Occurrence
+// Insert Position
+// First True / Last False problems
+
+// How to derive everything from this
+
+// 1. Lower Bound (first >= target) condition = arr[mid] >= target
+//  if (arr[mid] >= target) high = mid;
+//     else low = mid + 1;
+
+// 2. Upper Bound (first > target) condition arr[mid] > target
+//  if (arr[mid] > target) high = mid;
+//     else low = mid + 1;
+
+// 3. First Occurrence, same as lower bound, then verify:
+function firstOccurrence(arr: number[], target: number): number {
+  const index = lowerBound(arr, target);
+  return arr[index] === target ? index : -1;
+}
+
+// 4. Last Occurrence, last occurrence = upperBound(target) - 1
+function lastOccurrence(arr: number[], target: number): number {
+  const index = upperBound(arr, target) - 1;
+  return arr[index] === target ? index : -1;
+}
+
+// const first = lowerBound(arr, target)
+// const last = lowerBound(arr, target + 1) - 1
+
+// 5. Count Occurrences, count = upperBound - lowerBound
+function countOccurrences(arr: number[], target: number): number {
+  return upperBound(arr, target) - lowerBound(arr, target);
+}
+
+// 6. Insert Position (LeetCode 35), same as lower bound
+function searchInsertLB(arr: number[], target: number): number {
+  return lowerBound(arr, target);
+}
+
+// Why high = arr.length (not length-1)
+// This allows finding insert position at end:
+
+// Interview Master Pattern Summary
+// Problem	          Condition
+// Lower Bound	      arr[mid] >= target
+// Upper Bound	      arr[mid] > target
+// First Occurrence	  lowerBound
+// Last Occurrence	  upperBound - 1
+// Count	            upperBound - lowerBound
+// Insert Position	  lowerBound
+
+// Batch 16: Binary Search Advanced
+
+// Problem 1: Search in Rotated Sorted Array
+
+// Input:
+// nums = [4,5,6,7,0,1,2], target = 0
+// Output: 4
+
+// Thinking
+// Array is sorted but rotated
+// One half is always sorted
+// Check which half is sorted
+// Decide where target lies
+
+// TS Code | LeetCode: 33 – Search in Rotated Sorted Array | GFG: Search in Rotated Array
+function searchRotatedArray(nums: number[], target: number): number {
+  let low = 0;
+  let high = nums.length - 1;
+
+  while (low <= high) {
+    const mid = low + Math.floor((high - low) / 2);
+
+    if (nums[mid] === target) return mid;
+
+    // left half sorted
+    if (nums[low] <= nums[mid]) {
+      if (target >= nums[low] && target < nums[mid]) {
+        high = mid - 1;
+      } else {
+        low = mid + 1;
+      }
+    }
+
+    // right half sorted
+    else {
+      if (target > nums[mid] && target <= nums[high]) {
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
+  }
+
+  return -1;
+}
+// O(log n)|O(1)
+// console.log(searchRotatedArray([4, 5, 6, 7, 0, 1, 2], 0));
+
+// Pattern: Binary Search with Sorted Half Detection
+// Optimization: No need to find pivot separately.
+
+// TypeScript Code (Pivot Method), [4,5,6,7,0,1,2], pivot = 4 (index) = 0(next elem smaller than the prev elem), here nums[mid] > nums[high]
+function searchPivotMethod(nums: number[], target: number): number {
+  const n = nums.length;
+
+  // Step 1: Find pivot
+  let low = 0;
+  let high = n - 1;
+
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+
+    if (nums[mid] > nums[high]) {
+      low = mid + 1; // search in left
+    } else {
+      high = mid;
+    }
+  }
+
+  const pivot = low;
+
+  // Step 2: Decide search space
+  low = 0;
+  high = n - 1;
+
+  if (target >= nums[pivot] && target <= nums[high]) {
+    low = pivot;
+  } else {
+    high = pivot - 1;
+  }
+
+  // Step 3: Normal Binary Search
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+
+    if (nums[mid] === target) return mid;
+    if (nums[mid] < target) low = mid + 1;
+    else high = mid - 1;
+  }
+
+  return -1;
+}
+// console.log(searchPivotMethod([4, 5, 6, 7, 0, 1, 2], 6));
+
+// Problem 2: Find Minimum in Rotated Sorted Array
+
+// Input:
+// nums = [3,4,5,1,2]
+// Output: 1
+
+// Thinking
+// Minimum lies in unsorted half
+// Compare mid with high
+// Shrink towards minimum
+
+// TS Code | LeetCode: 153 – Find Minimum in Rotated Sorted Array | GFG: Minimum in Rotated Sorted Array
+function findMin(nums: number[]): number {
+  let low = 0;
+  let high = nums.length - 1;
+
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+
+    if (nums[mid] > nums[high]) {
+      low = mid + 1;
+    } else {
+      high = mid;
+    }
+  }
+
+  return nums[low];
+}
+// O(log n)|O(1)
+// console.log(findMin([4,5,6,7,0,1,2]));
+
+// Pattern: Binary Search on Rotation Point
+
+// Problem 3: Find Peak Element
+
+// Input:
+// nums = [1,2,3,1]
+// Output: 2 (index of 3)
+
+// Thinking
+// If mid < mid+1 → peak is on right
+// Else → peak is on left
+// Always move toward increasing slope
+
+// The array is made of slopes! Uphill or Downhill
+
+// TS Code | LeetCode: 162 – Find Peak Element | GFG: Peak Element
+function findPeakElement(nums: number[]): number {
+  let low = 0;
+  let high = nums.length - 1;
+  let mid = 0;
+
+  while (low < high) {
+    mid = Math.floor((low + high) / 2);
+
+    if (nums[mid] < nums[mid + 1]) {
+      low = mid + 1;
+    } else {
+      high = mid;
+    }
+  }
+
+  return low;
+}
+// O(log n)|O(1)
+// console.log(findPeakElement([4,5,6,7,0,1,2]));
+
+// Pattern: Binary Search on Slope
+
+// Problem 4: Search in Infinite Sorted Array
+// Array size unknown. Find target efficiently.
+
+// Thinking
+// Expand range exponentially
+// Start with high = 1
+// Double until target ≤ arr[high]
+// Apply binary search in range
+
+// TS Code | GFG: Search in Infinite Sorted Array
+
+function searchInfinite(arr: number[], target: number): number {
+  let low = 0;
+  let high = 1;
+
+  // Expand range
+  while (high < arr.length && arr[high] < target) {
+    low = high;
+    high = high * 2;
+  }
+
+  high = Math.min(high, arr.length - 1);
+
+  // Binary search
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+
+    if (arr[mid] === target) return mid;
+    else if (arr[mid] < target) low = mid + 1;
+    else high = mid - 1;
+  }
+
+  return -1;
+}
+// O(log n)|O(1)
+// const nums = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31];
+// console.log(searchInfinite(nums, 19));
+
+// Pattern: Exponential Search + Binary Search
+
+// Problem 5: Koko Eating Bananas (Binary Search on Answer)
+// Given piles and hours h, find minimum eating speed k.
+
+// Thinking
+// Search k between 1 and max(piles)
+// Check if possible within h hours
+// If possible → try smaller speed
+
+// TS Code | LeetCode: 875 – Koko Eating Bananas
+
+function minEatingSpeed(piles: number[], h: number): number {
+  let low = 1;
+  let high = Math.max(...piles);
+
+  function canFinish(speed: number): boolean {
+    let hours = 0;
+
+    for (let pile of piles) {
+      hours += Math.ceil(pile / speed); // speed = distance/time
+    }
+    return hours <= h;
+  }
+
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+
+    if (canFinish(mid)) {
+      high = mid;
+    } else {
+      low = mid + 1;
+    }
+  }
+
+  return low;
+}
+// O(n log m) (n = piles, m = max pile)|O(1)
+console.log(minEatingSpeed([3, 6, 7, 11], 8));
+
+// Pattern: Binary Search on Answer (Feasibility Check)
+// Optimization: Never brute-force speed from 1 → max.
+
+// As k increases: Total hours required decreases.
+
+// So:
+// k small  → hours big
+// k big    → hours small
