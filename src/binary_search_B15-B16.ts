@@ -674,7 +674,6 @@ function searchInfinite(arr: number[], target: number): number {
 // If possible → try smaller speed
 
 // TS Code | LeetCode: 875 – Koko Eating Bananas
-
 function minEatingSpeed(piles: number[], h: number): number {
   let low = 1;
   let high = Math.max(...piles);
@@ -701,7 +700,7 @@ function minEatingSpeed(piles: number[], h: number): number {
   return low;
 }
 // O(n log m) (n = piles, m = max pile)|O(1)
-console.log(minEatingSpeed([3, 6, 7, 11], 8));
+// console.log(minEatingSpeed([3, 6, 7, 11], 8));
 
 // Pattern: Binary Search on Answer (Feasibility Check)
 // Optimization: Never brute-force speed from 1 → max.
