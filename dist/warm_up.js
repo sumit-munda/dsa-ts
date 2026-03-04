@@ -1,5 +1,5 @@
 "use strict";
-// Warm Up
+// BATCH 1 Warm Up
 // Problem 1: Programming 101
 // Print numbers from 1 to N
 // Input n = 5
@@ -43,6 +43,7 @@ function sumTillN(n) {
     return sum;
 }
 // O(n)|O(1): Loop adds numbers once, uses one variable.
+// *
 // Optimized Idea
 // O(1)|O(1): Single operation, no loops or storage
 function sumTillN2(n) {
@@ -70,6 +71,8 @@ function countDigits(n) {
     return digits;
 }
 // O(d) → O(log₁₀ n)|O(1): One loop per digit, no extra storage.
+// [log base 10 of n or the common logarithm of n]
+// *
 function countDigits2(n) {
     if (n === 0)
         return 1;
@@ -79,7 +82,7 @@ function countDigits2(n) {
 // console.log(countDigits(12345));
 // console.log(countDigits2(-1234));
 // Pattern: While loop + Math
-// Mod n if want last digit every iteration
+// Mod n by 10 if want last digit every iteration
 // log10 + 1 gives no of digits across logic
 // Math.abs(n) - supports negative numbers
 // Problem 5: Second Largest in an Array
@@ -88,6 +91,7 @@ function countDigits2(n) {
 // Thinking
 // Track largest
 // Track second largest
+// *
 // TS Code
 function secondLargest(arr) {
     let largest = -Infinity;
@@ -133,6 +137,7 @@ function secondLargest2(arr) {
 // Thinking
 // Reverse the number
 // Compare with original
+// *
 // TS Code | Leetcode #9 and #7
 function isPalindrome(n) {
     if (n === 0)
@@ -141,27 +146,30 @@ function isPalindrome(n) {
     let oriN = n;
     while (oriN > 0) {
         let rem = oriN % 10;
-        newN = newN * 10 + rem;
+        newN = newN * 10 + rem; // exponential growth of the newN, so * 10
         // oriN = oriN / 10; In JS/TS, / always gives a decimal
         oriN = Math.floor(oriN / 10);
     }
     return n === newN;
 }
 // O(d) → O(log₁₀ n)|O(1): Reverse digits once, constant extra space.
+// *
 function isPalindromeStr(n) {
     const reverse = `${n}`.split("").reverse().join("");
     return reverse === `${n}`;
 }
 // O(d)|O(d): Converts number to string and creates a reversed copy of d digits.
+// Each step processes all d characters.
 // console.log(isPalindromeStr(121));
 // Pattern: Reverse logic
 // !((-2 ** 31) <= x <= (2 ** 31 - 1))
 // chained comparison doesn’t work in JS/TS.
 // Interview Tip
 // Loops → usually O(n)
-// Digit problems → usually O(log₁₀ n)
+// Digit problems → usually O(log₁₀ n) | O(log n) (base doesn’t matter in Big-O)
 // No extra data structures → O(1) space
 // O(d): In digit-based problems, we express complexity in terms of digits processed
+// BATCH 2 WARM UP (Continued)
 // Problem 7: Reverse Integer
 // Input 123
 // Output 321
@@ -170,6 +178,7 @@ function isPalindromeStr(n) {
 // Build reversed number
 // Remove last digit using / 10
 // Repeat until number becomes 0
+// *
 // TS Code | Leetcode #7
 function reverseInteger(n) {
     if (n === 0)
@@ -187,12 +196,14 @@ function reverseInteger(n) {
 // O(d) → O(log₁₀ n)|O(1): Processes each digit once, no extra storage.
 // console.log(reverseInteger(-1234));
 // Pattern: Reverse logic
+// *
 // Problem 8: Star Pattern
 // Input n = 3
 // Output
 // *
 // **
 // ***
+// The inner loop runs as many times as the current iteration number of the outer loop.
 // Thinking
 // Outer loop → rows
 // Inner loop → stars per row
@@ -209,12 +220,14 @@ function starPattern(n) {
 // O(n²)|O(1): Nested loops print stars row by row.
 // starPattern(3);
 // Pattern: Nested loops / Pattern printing
+// *
 // Problem 9: Loop in Loop (Multiplication Table)
 // Input n = 3
 // Output
 // 1 2 3
 // 2 4 6
 // 3 6 9
+// For each row, the inner loop runs through all columns and prints the product of the current row number and the column number.
 // Thinking
 // Outer loop → row number
 // Inner loop → multiply row × column
@@ -277,6 +290,7 @@ function sumOfDigits(n) {
 // Count digits
 // Raise each digit to power of count
 // Sum them and compare with original number
+// *
 // TS Code | GFG / Interview Standard
 function isArmstrong(n) {
     if (n >= 0 || n < 10)
@@ -299,3 +313,7 @@ function isArmstrong(n) {
 // Nested loops → O(n²)
 // No arrays/maps → O(1) space
 // JS doesn’t have integer division — it returns decimals.
+// Space complexity counts how much memory you allocate, not what values those variables hold.
+// let digits = n.toString().split("");
+// You are storing all digits, Number of stored elements = number of digits = d
+// d ≈ log₁₀(n) | Space = O(d)
