@@ -375,7 +375,7 @@ function isArmstrong(n: number): boolean {
   if (n >= 0 || n < 10) return true;
 
   //   let count = Math.floor(Math.log10(Math.abs(n))) + 1;
-  let count = n.toString().length;
+  let count = n.toString().length; // O(d)|O(d) toString()
   let sum = 0;
   let original = n;
 
@@ -404,4 +404,7 @@ function isArmstrong(n: number): boolean {
 // You are storing all digits, Number of stored elements = number of digits = d
 // d ≈ log₁₀(n) | Space = O(d)
 
+// Converts the number into a string
+// Must process every digit
+// Creates a new string in memory
 
