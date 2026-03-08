@@ -371,6 +371,8 @@ function rotateByOne(nums: number[]): void {
 // Input: arr = [1,2,3,4,5], d = 2
 // Output: [3,4,5,1,2]
 
+// If rotated by d = arr.size then we get the same array unchanged. So for any d greater than arr.size we mod d by arr.length so as to remove unnecessary rotations!
+
 // Thinking
 // Reverse first part
 // Reverse second part
@@ -393,6 +395,27 @@ function rotateByD(nums: number[], d: number) {
 }
 // O(n²)|O(1): Nested loops
 
+function rotateByDStriver(nums: number[], d: number) {
+  let n = nums.length;
+  d = d % nums.length;
+
+  let temp: number[] = [];
+  for (let i = 0; i < d; i++) { // O(d)
+    temp[i] = nums[i];
+  }
+
+  for (let i = d; i < n; i++) { // O (n - d)
+    nums[i - d] = nums[i];
+  }
+
+  for (let i = n - d; i < nums.length; i++) { // O(d)
+    nums[i] = temp[i - (n - d)];
+  }
+
+  console.log(nums);
+}
+// O(n + d)|O(d): Using a new temp array 
+
 // Best optimal approach (for interviews)
 function reverse(arr: number[], start: number, end: number) {
   while (start < end) {
@@ -405,16 +428,17 @@ function reverse(arr: number[], start: number, end: number) {
 function rotateByDOP(arr: number[], d: number) {
   d = d % arr.length;
 
-  reverse(arr, 0, d - 1);
-  reverse(arr, d, arr.length - 1);
-  reverse(arr, 0, arr.length - 1);
+  reverse(arr, 0, d - 1); // O(d)
+  reverse(arr, d, arr.length - 1); // O(n - d)
+  reverse(arr, 0, arr.length - 1); // O(n)
 
   console.log(arr);
 }
-// O(n)|O(1): Three reversals part-by-part, no extra memory
+// O(2n)|O(1): Three reversals part-by-part, no extra memory
 // Optimization: Best possible (vs temp array)
 
 // rotateByD([1, 2, 3, 4, 5], 2);
+// console.log(rotateByDStriver([1, 2, 3, 4, 5], 2));
 // rotateByDOP([1, 2, 3, 4, 5], 2);
 // Pattern: Reversal algorithm
 
