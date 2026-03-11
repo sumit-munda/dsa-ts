@@ -820,7 +820,8 @@ function merge(left: number[], right: number[]): number[] {
   // We stop comparing
   // Append remaining elements directly
 
-  return result.concat(left.slice(i)).concat(right.slice(j));
+  // return result.concat(left.slice(i)).concat(right.slice(j));
+  return [...result, ...left.slice(i), ...right.slice(j)];
 }
 // O(n log n):log n levels × n merging each level|O(n):extra array used for merging
 
@@ -1030,4 +1031,3 @@ function sumOfDigitsRec(n: number): number {
 // console.log(sumOfDigitsRec(121));
 // Pattern: Remove last digit recursively
 // Optimization: Iterative loop works same
-
