@@ -461,6 +461,25 @@ function fibonacci(n: number): number {
 // Backtracking
 // Tree problems
 
+// Sum of Array using recursion
+function sumArrayRec(nums: number[], n: number = 0): number {
+  if (n === nums.length - 1) return nums[n];
+
+  return nums[n] + sumArrayRec(nums, n + 1);
+}
+// console.log(sumArrayRec([5, 1, 4, 2, 3], 0));
+
+function sumEvenRec(nums: number[], i: number = 0): number {
+  if (i === nums.length) return 0;
+
+  if (nums[i] % 2 === 0) {
+    return nums[i] + sumEvenRec(nums, i + 1);
+  }
+
+  return sumEvenRec(nums, i + 1); // else skip (no adding)
+}
+// console.log(sumEvenRec([5, 1, 4, 2, 3], 0));
+
 // BATCH 10 – SORTING (Basic Sorting Algorithms)
 
 // 1️ Bubble Sort
@@ -700,6 +719,27 @@ function insertionSort(arr: number[]): number[] {
 
 // console.log(insertionSort([12, 11, 13, 5, 6]));
 // Pattern: Insert into sorted portion
+
+// Insertion sort Namaste DSA
+function insertionSortNDSA(nums: number[]): number[] {
+  let n = nums.length;
+
+  for (let i = 1; i < n; i++) {
+    let curr = nums[i];
+    let prev = i - 1;
+
+    while (nums[prev] > curr && prev >= 0) {
+      nums[prev + 1] = nums[prev]; // shift forward
+      prev--;
+    }
+
+    nums[prev + 1] = curr;
+  }
+
+  return nums;
+}
+console.log(insertionSortNDSA([12, 11, 13, 5, 6]));
+
 
 // Idea of Insertion Sort
 // Think like sorting cards in your hand.
