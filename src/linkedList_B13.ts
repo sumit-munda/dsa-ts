@@ -119,12 +119,12 @@ function insertAtBeginning(head: ListNode | null, val: number): ListNode {
 // Optimization: Already optimal
 
 // 1 Basic Console Log (Raw Structure)
-// let head: ListNode | null = null;
+let head: ListNode | null = null;
 
-// head = insertAtBeginning(head, 4);
-// head = insertAtBeginning(head, 3);
-// head = insertAtBeginning(head, 2);
-// head = insertAtBeginning(head, 1);
+head = insertAtBeginning(head, 4);
+head = insertAtBeginning(head, 3);
+head = insertAtBeginning(head, 2);
+head = insertAtBeginning(head, 1);
 
 // console.log(head);
 
@@ -164,13 +164,13 @@ function toArray(head: ListNode | null): number[] {
   return arr;
 }
 
-let head: ListNode | null = null;
+// let head: ListNode | null = null;
 
-head = insertAtBeginning(head, 5);
-head = insertAtBeginning(head, 4);
-head = insertAtBeginning(head, 3);
-head = insertAtBeginning(head, 2);
-head = insertAtBeginning(head, 1);
+// head = insertAtBeginning(head, 5);
+// head = insertAtBeginning(head, 4);
+// head = insertAtBeginning(head, 3);
+// head = insertAtBeginning(head, 2);
+// head = insertAtBeginning(head, 1);
 
 // console.log(toArray(head));
 
@@ -299,7 +299,7 @@ function hasCycle(head: ListNode | null): boolean {
   return false;
 }
 // O(n)|O(1): No extra data structure
-console.log(hasCycle(head));
+// console.log(hasCycle(head));
 
 // Pattern: Floyd’s Cycle Detection
 // Optimization: Optimal solution
